@@ -27,6 +27,7 @@ public class ResultCheckService extends Service {
 
     private String TAG = "ResultCheckService";
     private String usn;
+    private CheckWebPage task;
     public ResultCheckService() {
     }
 
@@ -41,7 +42,6 @@ public class ResultCheckService extends Service {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         usn = intent.getStringExtra("USN");
-        CheckWebPage task = new CheckWebPage();
 
         //Keep a notifiation so that service is not killed
         Intent notificationIntent = new Intent(this, ResultCheckService.class);
@@ -50,13 +50,21 @@ public class ResultCheckService extends Service {
         Notification notification = new Notification.Builder(this)
                 .setContentTitle("VTU Result Notifier")
                 .setContentText("Will Keep Checking For Your Result")
-                .setSmallIcon(R.drawable.small_icon)
+                .setSmallIcon(R.drawable.small_icon_doing)
                 .setContentIntent(pendingIntent)
                 .build();
 
         startForeground(7, notification);
+        task = new CheckWebPage();
         task.execute();
         return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy(){
+        Log.v("SERVICE","Service killed");
+        task.cancel(true);
+        super.onDestroy();
     }
 
     private class CheckWebPage extends AsyncTask<String, Void, String> {
@@ -103,6 +111,8 @@ public class ResultCheckService extends Service {
                     Log.i(TAG, "Connection Error/Timeout..." + e.toString());
                 } catch (InterruptedException e) {
                     Log.e(TAG, "Interrupted..");
+                    task.cancel(true);
+                    break;
                 }
             }
             return "done";

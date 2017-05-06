@@ -95,6 +95,8 @@ public class ResultCheckService extends Service {
                         mBuilder.setContentText("Click this notification to visit result page.");
                         mBuilder.setSmallIcon(R.drawable.small_icon);
                         mBuilder.setAutoCancel(true);
+                        mBuilder.setSound(Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.monotone));
+                        mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
                         //On Clicking Visit result page
                         Intent notificationIntent = new Intent(Intent.ACTION_VIEW);
                         notificationIntent.setData(Uri.parse(url.toString()));

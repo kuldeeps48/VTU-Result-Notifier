@@ -98,8 +98,9 @@ public class ResultCheckService extends Service {
                         mBuilder.setSound(Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.monotone));
                         mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
                         //On Clicking Visit result page
-                        Intent notificationIntent = new Intent(Intent.ACTION_VIEW);
-                        notificationIntent.setData(Uri.parse(url.toString()));
+                        Intent notificationIntent = new Intent(getApplicationContext(), ResultDisplay.class);
+                        notificationIntent.putExtra("html_data", content.toString());
+                        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
                         mBuilder.setContentIntent(pi);
                         //Create notification and show

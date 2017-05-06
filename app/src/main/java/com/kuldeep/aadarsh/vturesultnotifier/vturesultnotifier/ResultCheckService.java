@@ -15,6 +15,9 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
@@ -22,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class ResultCheckService extends Service {
 
@@ -97,15 +101,29 @@ public class ResultCheckService extends Service {
                         mBuilder.setAutoCancel(true);
                         mBuilder.setSound(Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.monotone));
                         mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
+
+                        File path = getApplicationContext().getFilesDir();
+                        File file = new File(path, "my-file-name.txt");
+
+                        try {
+                            FileWriter out = new FileWriter(new File(path, "my-file-name.txt"));
+                            out.write(content.toString());
+                            out.close();
+                        } catch (IOException e) {
+                            Log.i(TAG, e.toString());
+                        }
+                        int length = (int) file.length();
                         //On Clicking Visit result page
                         Intent notificationIntent = new Intent(getApplicationContext(), ResultDisplay.class);
-                        notificationIntent.putExtra("html_data", content.toString());
+                        notificationIntent.putExtra("length", length);
                         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
                         mBuilder.setContentIntent(pi);
                         //Create notification and show
                         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                         notificationManager.notify(0, mBuilder.build());
+                        //write to file
+
                         break;
                     }
                 } catch (MalformedURLException e) {

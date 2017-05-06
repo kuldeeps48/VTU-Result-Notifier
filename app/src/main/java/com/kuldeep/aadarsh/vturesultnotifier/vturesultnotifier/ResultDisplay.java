@@ -1,5 +1,6 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class ResultDisplay extends AppCompatActivity {
+public class ResultDisplay extends Activity {
     private String html;
     private WebView display;
 

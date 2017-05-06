@@ -1,5 +1,6 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private EditText usn_edittext;
     private Button start;
     private Button stop;

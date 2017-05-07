@@ -21,7 +21,7 @@ public class ChangeTheme {
             activity.setTheme(R.style.Theme_AppCompat);
         }
         else {
-            activity.setTheme(R.style.Theme_AppCompat_DayNight);
+            activity.setTheme(R.style.AppTheme);
         }
     }
 }

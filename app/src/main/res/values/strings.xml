@@ -6,4 +6,5 @@
     <string name="proper_usn">Invalid USN. Check And Try Again.</string>
     <string name="service_started">Service Started!</string>
     <string name="service_stopped">Service Stopped</string>
+    <string name="prev_result">Last Result</string>
 </resources>

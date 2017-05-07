@@ -15,9 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-<<<<<<< HEAD
 public class ResultDisplay extends AppCompatActivity {
->>>>>>> 4e1d5cdb0b39471ba89ba889cf74227afeee3c9c
     private WebView display;
 
     @Override

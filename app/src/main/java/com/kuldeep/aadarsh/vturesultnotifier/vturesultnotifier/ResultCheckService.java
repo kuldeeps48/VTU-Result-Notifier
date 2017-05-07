@@ -48,8 +48,7 @@ public class ResultCheckService extends Service {
 
         //Keep a notification so that service is not killed
         Intent notificationIntent = new Intent(ResultCheckService.this, MainActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                |Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(ResultCheckService.this, 0, notificationIntent,
                 0);
         Notification notification = new Notification.Builder(this)

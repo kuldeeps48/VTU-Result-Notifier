@@ -15,5 +15,5 @@
     <string name="about_us_python_project">\nIf you want to try out or contribute to the open source Python project that inspired this project, fork it at:\nhttps://gitlab.com/aadarsh977/vtuResults!\n</string>
     <string name="prev_result">Last Result</string>
     <string name="info"><b><i>Instructions:</i></b>\n1. Enter USN.\n2. Press \'Check Result\'.\n<i>   A notification will arrive when the result is available.</i>\n3. Click on notification to view the result.</string>
-    
+
 </resources>

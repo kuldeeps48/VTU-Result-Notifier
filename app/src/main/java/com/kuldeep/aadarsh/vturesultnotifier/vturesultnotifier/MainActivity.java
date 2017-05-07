@@ -2,12 +2,18 @@ package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnLongClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
@@ -18,11 +24,30 @@ public class MainActivity extends Activity {
     private Button start;
     private Button stop;
     private String usn;
+    public static boolean longPress = false;
+    private static boolean darkTheme = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ChangeTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_main);
+
+        // Don't tell anyone about this!
+        final EditText changeThemeAction = (EditText) findViewById(R.id.usn_edittext);
+        final Activity activity = this;
+        changeThemeAction.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (!darkTheme) {
+                    ChangeTheme.changeTheme(activity);
+                    darkTheme = true;
+                    return true;
+                }
+                return false;
+            }
+        });
 
         start = (Button) findViewById(R.id.start_button);
         //Set button click listener on Start button

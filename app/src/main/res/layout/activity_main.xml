@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root"
     tools:context="com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <Button
         android:id="@+id/start_button"
@@ -27,7 +29,9 @@
         android:layout_marginBottom="18dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:longClickable="true"
+        />
 
     <Button
         android:id="@+id/stop_button"

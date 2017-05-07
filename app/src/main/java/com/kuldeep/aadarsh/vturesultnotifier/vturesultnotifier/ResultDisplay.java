@@ -15,7 +15,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ResultDisplay extends AppCompatActivity {
-    private String html;
     private WebView display;
 
     @Override
@@ -27,10 +26,11 @@ public class ResultDisplay extends AppCompatActivity {
         StringBuilder stringBuilder = new StringBuilder();
         String line;
         BufferedReader in = null;
-
+        //Take HTML of webpage from file and store it as a string
         try {
             in = new BufferedReader(new FileReader(new File(context.getFilesDir(), "my-file-name.txt")));
-            while ((line = in.readLine()) != null) stringBuilder.append(line);
+            while ((line = in.readLine()) != null)
+                stringBuilder.append(line);
 
         } catch (FileNotFoundException e) {
             Log.i("ResultDisplay", e.toString());
@@ -41,6 +41,7 @@ public class ResultDisplay extends AppCompatActivity {
         String contents = stringBuilder.toString();
         Log.i("ResultDisplay", contents);
         display = (WebView) findViewById(R.id.webview);
+        //Display String in WebView
         display.loadDataWithBaseURL(null, contents, "text/html", "utf-8", null);
     }
 }

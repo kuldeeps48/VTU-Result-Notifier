@@ -7,4 +7,6 @@
     <string name="service_started">Service Started!</string>
     <string name="service_stopped">Service Stopped</string>
     <string name="prev_result">Last Result</string>
+    <string name="info">Enter your USN below and push \'Start\'. A Service will check your result for you while you do your work. Once your result
+    is available, it will automatically download it. A Notification would appear from where you can see your result.</string>
 </resources>

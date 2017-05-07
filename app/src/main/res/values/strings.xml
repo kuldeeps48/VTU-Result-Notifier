@@ -6,4 +6,12 @@
     <string name="proper_usn">Invalid USN. Check And Try Again.</string>
     <string name="service_started">Service Started!</string>
     <string name="service_stopped">Service Stopped</string>
+    <string name="pref_about_us">About Us</string>
+    <string name="settings_caption">Settings</string>
+
+    <string name="about_us_header">\nNow, get your results ASAP!\n</string>
+    <string name="about_us_introduction">\tEnter your USN before results are published. We\'ll send you the results after they are available.\n\tVTU server responds poorly when the results are published. VTU Result Notifier is an Android app that aims to solve this problem. The app is determined to provide the result once you enter the USN. Gone are the days when you reloaded the page multiple times with frustration.</string>
+    <string name="about_us_contact"><i>Please provide feedback, suggestions or report bugs at:\n</i>\nthe.era.labs@gmail.com</string>
+    <string name="about_us_python_project">\nIf you want to try out or contribute to the open source Python project that inspired this project, fork it at:\nhttps://gitlab.com/aadarsh977/vtuResults!\n</string>
+
 </resources>

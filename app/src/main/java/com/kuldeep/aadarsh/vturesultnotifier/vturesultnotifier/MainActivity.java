@@ -1,25 +1,39 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.app.ActionBar;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/*
+ToDo: Implement About Us in Settings page with new Activity instead of alert dialog
+ */
 
 public class MainActivity extends AppCompatActivity {
     private EditText usn_edittext;
     private Button start;
     private Button stop;
     private String usn;
-    public static boolean longPress = false;
-    private static boolean darkTheme = false;
+    public static boolean changeThemeFlag = false;
+    public static boolean darkTheme = false;
 
 
     @Override
@@ -79,5 +93,44 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_action, menu);
+        return true;
+    }
+
+    // About Us
+    public void aboutUsDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater alert_layout = LayoutInflater.from(this);
+        final View view = alert_layout.inflate(R.layout.about_us, null);
+        alertDialogBuilder.setView(view);
+        alertDialogBuilder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int value) {
+                // Do nothing, go back to main UI
+            }
+        });
+        alertDialogBuilder.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                aboutUsDialog();
+
+                /* For implementing Settings
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivity(i);*/
+
+                break;
+            default:
+                break;
+        }
+
+        return true;
     }
 }

@@ -7,11 +7,16 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+<<<<<<< HEAD
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+=======
+import android.util.Log;
+>>>>>>> 019194603fd07d1a15a53541689e397e2d321671
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
@@ -32,8 +37,14 @@ public class MainActivity extends AppCompatActivity {
     private Button start;
     private Button stop;
     private String usn;
+<<<<<<< HEAD
     public static boolean changeThemeFlag = false;
     public static boolean darkTheme = false;
+=======
+    private FloatingActionButton floating_button;
+    public static boolean longPress = false;
+    private static boolean darkTheme = false;
+>>>>>>> 019194603fd07d1a15a53541689e397e2d321671
 
 
     @Override
@@ -41,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ChangeTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_main);
+
 
         // Don't tell anyone about this!
         final EditText changeThemeAction = (EditText) findViewById(R.id.usn_edittext);
@@ -90,6 +102,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 stopService(new Intent(MainActivity.this, ResultCheckService.class));
                 Toast.makeText(MainActivity.this,R.string.service_stopped, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        floating_button = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        floating_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ResultDisplay.class);
+                startActivity(intent);
+                Log.i("MainActivity", "Showed last stored result");
             }
         });
 

@@ -6,6 +6,7 @@
     <string name="proper_usn">Invalid USN. Check And Try Again.</string>
     <string name="service_started">Service Started!</string>
     <string name="service_stopped">Service Stopped</string>
+<<<<<<< HEAD
     <string name="pref_about_us">About Us</string>
     <string name="settings_caption">Settings</string>
 
@@ -14,4 +15,9 @@
     <string name="about_us_contact"><i>Please provide feedback, suggestions or report bugs at:\n</i>\nthe.era.labs@gmail.com</string>
     <string name="about_us_python_project">\nIf you want to try out or contribute to the open source Python project that inspired this project, fork it at:\nhttps://gitlab.com/aadarsh977/vtuResults!\n</string>
 
+=======
+    <string name="prev_result">Last Result</string>
+    <string name="info">Enter your USN below and push \'Start\'. A Service will check your result for you while you do your work. Once your result
+    is available, it will automatically download it. A Notification would appear from where you can see your result.</string>
+>>>>>>> 019194603fd07d1a15a53541689e397e2d321671
 </resources>

@@ -12,16 +12,16 @@ public class ChangeTheme {
             activity.finish();
             longPress = true;
             activity.startActivity(new Intent(activity, activity.getClass()));
+            Toast.makeText(activity.getApplicationContext(), "Welcome to the Dark Side!", Toast.LENGTH_LONG).show();
     }
 
     // Set theme when new activity is started
     public static void onActivityCreateSetTheme(Activity activity) {
         if (longPress) {
-            activity.setTheme(R.style.DarkAppTheme);
-            Toast.makeText(activity.getApplicationContext(), "Welcome to the Dark Side!", Toast.LENGTH_LONG).show();
+            activity.setTheme(R.style.Theme_AppCompat);
         }
         else {
-            activity.setTheme(R.style.AppTheme);
+            activity.setTheme(R.style.Theme_AppCompat_DayNight);
         }
     }
 }

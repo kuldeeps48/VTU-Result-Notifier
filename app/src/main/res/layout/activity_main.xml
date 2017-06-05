@@ -15,6 +15,7 @@
         android:text="@string/button_old_scheme"
         android:textAlignment="center"
         android:padding="30dp"
+        android:onClick="onClick"
         />
 
         <Button

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
-import static com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.MainActivity.changeThemeFlag;
+import static com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.UsnInputActivity.changeThemeFlag;
 
 public class ChangeTheme {
         // Kill activity and start new activity

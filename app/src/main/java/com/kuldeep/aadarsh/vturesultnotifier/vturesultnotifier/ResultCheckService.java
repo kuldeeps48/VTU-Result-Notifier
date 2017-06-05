@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class ResultCheckService extends Service {
 
     private String TAG = "ResultCheckService";
-    private String usn;
+    private String page_url;
     private CheckWebPage task;
     public ResultCheckService() {
     }
@@ -43,8 +43,8 @@ public class ResultCheckService extends Service {
         //Allow Networking in service
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        //Get USN from MainActivity's intent
-        usn = intent.getStringExtra("USN");
+        //Get URL from MainActivity's intent
+        page_url = intent.getStringExtra("RESULT_PAGE_URL");
 
         //Keep a notification so that service is not killed
         Intent notificationIntent = new Intent(ResultCheckService.this, MainActivity.class);
@@ -85,7 +85,7 @@ public class ResultCheckService extends Service {
             while (true) {
                 Log.i(TAG, "Getting Results..");
                 try {
-                    URL url = new URL("http://results.vtu.ac.in/results/result_page.php?usn=" + usn);
+                    URL url = new URL(page_url);
                     Log.i(TAG, url.toString());
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));

@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 ToDo: Implement About Us in Settings page with new Activity instead of alert dialog
  */
 
-public class MainActivity extends AppCompatActivity {
+public class UsnInputActivity extends AppCompatActivity {
     private EditText usn_edittext;
     private Button start;
     private Button stop;
@@ -72,13 +72,15 @@ public class MainActivity extends AppCompatActivity {
 
                 if(matcher.find()) {
                     //Run service
-                    Intent serviceIntent = new Intent(MainActivity.this, ResultCheckService.class);
-                    serviceIntent.putExtra("USN", usn);
+                    String url = getIntent().getStringExtra("URL_WITHOUT_USN");
+                    url = url + usn;
+                    Intent serviceIntent = new Intent(UsnInputActivity.this, ResultCheckService.class);
+                    serviceIntent.putExtra("RESULT_PAGE_URL", url);
                     getApplicationContext().startService(serviceIntent);
-                    Toast.makeText(MainActivity.this,R.string.service_started, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UsnInputActivity.this,R.string.service_started, Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Toast.makeText(MainActivity.this,R.string.proper_usn, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UsnInputActivity.this,R.string.proper_usn, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -89,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopService(new Intent(MainActivity.this, ResultCheckService.class));
-                Toast.makeText(MainActivity.this,R.string.service_stopped, Toast.LENGTH_SHORT).show();
+                stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));
+                Toast.makeText(UsnInputActivity.this,R.string.service_stopped, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -98,9 +100,9 @@ public class MainActivity extends AppCompatActivity {
         floating_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ResultDisplay.class);
+                Intent intent = new Intent(UsnInputActivity.this, ResultDisplay.class);
                 startActivity(intent);
-                Log.i("MainActivity", "Showed last stored result");
+                Log.i("UsnInputActivity", "Showed last stored result");
             }
         });
 

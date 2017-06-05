@@ -2,4 +2,47 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_old_scheme"
+        android:text="@string/button_old_scheme"
+        android:textAlignment="center"
+        android:padding="30dp"
+        />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_cbcs_scheme"
+            android:text="@string/button_cbcs_scheme"
+            android:textAlignment="center"
+            android:padding="30dp"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_revaluation"
+            android:text="@string/button_revaluation"
+            android:textAlignment="center"
+            android:padding="30dp"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_about_us"
+            android:text="@string/pref_about_us"
+            android:textAlignment="center"
+            android:padding="30dp"
+            />
+
+    </LinearLayout>
 </ScrollView>

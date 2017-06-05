@@ -12,8 +12,10 @@
     <string name="about_us_header">\nNow, get your results ASAP!\n</string>
     <string name="about_us_introduction">\t\tEnter your USN before results are published. We\'ll send you the results after they are available.\n\t\tVTU server responds poorly when the results are published. VTU Result Notifier is an Android app that aims to solve this problem. The app is determined to provide the result once you enter the USN. Gone are the days when you reloaded the page multiple times with frustration.</string>
     <string name="about_us_contact"><i>Please provide feedback, suggestions or report bugs at:\n</i>\nthe.era.labs@gmail.com</string>
-    <string name="about_us_python_project">\nIf you want to try out or contribute to the open source Python project that inspired this project, fork it at:\nhttps://gitlab.com/aadarsh977/vtuResults!\n</string>
+    <string name="about_us_python_project">\nIf you want to try out or contribute to the open source Python project that inspired this project, fork it at:\nhttps://gitlab.com/aadarsh977/vtuResults\n</string>
     <string name="prev_result">Last Result</string>
     <string name="info">\n1. Enter USN\n2. Press \'Check Result\'\n<i><b>A notification will arrive when the result is available</b></i>\n3. Click on notification to view the result</string>
+
+    <string name="pref_check_update">Check for updates</string>
 
 </resources>

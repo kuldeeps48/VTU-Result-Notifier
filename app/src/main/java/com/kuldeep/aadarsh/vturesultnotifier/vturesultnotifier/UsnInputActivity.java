@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ChangeTheme.onActivityCreateSetTheme(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_usn_input);
 
 
         // Don't tell anyone about this!
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            // Settings
             case R.id.action_settings:
                 aboutUsDialog();
 
@@ -138,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);*/
 
                 break;
+
             default:
                 break;
         }

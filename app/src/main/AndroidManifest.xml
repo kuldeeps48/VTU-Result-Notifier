@@ -35,7 +35,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".CurveText">
+        <activity android:name=".ChangeTheme">
         </activity>
 
         <activity android:name=".SettingsActivity"

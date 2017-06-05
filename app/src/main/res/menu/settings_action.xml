@@ -6,4 +6,10 @@
         >
     </item>
 
+    <item
+        android:id="@+id/action_update_check"
+        android:title="@string/pref_check_update"
+        >
+    </item>
+
 </menu>

@@ -1,20 +1,21 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.Toast;
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created by aadarsha on 6/5/17.
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonOldScheme, buttonCbcsScheme, buttonRevaluation, buttonAboutUs, buttonSendFeedback;
     private WebView mWebView;
     private Intent intent;
+    private RetrieveResultNotification notification;
+    private String resultNoticeContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +45,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //buttonSendFeedback = (Button) findViewById(R.id.button_send_feedback);
         //buttonSendFeedback.setOnClickListener(this);
 
-        mWebView = (WebView) findViewById(R.id.webview);
-        mWebView.loadUrl("http://results.vtu.ac.in/");
+        // Get result notifications
+        // Display loading status
+        String webViewLoadingStatus = "<html><body><i><h3>Loading Result Notifications. . .</h3><br/><h5>You may go ahead and check your results!</h5></i></body></html>";
+        WebView notificationWebView = (WebView) findViewById(R.id.webview);
+        notificationWebView.loadDataWithBaseURL("", webViewLoadingStatus, "text/html", "UTF-8", "");
 
-        }
+        // Get notifications
+        notification = new RetrieveResultNotification();
+        notification.execute();
+
+
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -99,4 +111,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 */
         }
     }
+
+
+    // Result notification View
+    private class RetrieveResultNotification extends AsyncTask<String, Void, String> {
+
+        protected String doInBackground(String... urls) {
+            try {
+                URL url = new URL("http://results.vtu.ac.in/");
+
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                String data;
+                StringBuilder content = new StringBuilder();
+                //Source code in content
+                while ((data = bufferedReader.readLine()) != null)
+                {
+                    content.append(data);
+                }
+                bufferedReader.close();
+
+                // Extract the result notifications from VTU
+                String contentSourceCode = content.toString();
+
+                // First to last notification content from source code
+                int resultNoticeFirstIndexWithParam = contentSourceCode.indexOf("<li ");
+                int resultNoticeFirstIndexWithoutParam = contentSourceCode.indexOf("<li>");
+                int resultNoticeFirstIndex = (resultNoticeFirstIndexWithoutParam < resultNoticeFirstIndexWithParam) ? resultNoticeFirstIndexWithoutParam : resultNoticeFirstIndexWithParam;
+                int resultNoticeLastIndex = contentSourceCode.lastIndexOf("</li>");
+                resultNoticeContent = contentSourceCode.substring(resultNoticeFirstIndex, resultNoticeLastIndex);
+
+                Log.i("NOTICE_CONTENT", resultNoticeContent);
+
+            }
+            catch(MalformedURLException ex){
+                // hard coded URL
+            }
+            catch (IOException e) {
+                // hard coded URL
+            }
+            return "done";
+        }
+
+        protected void onPostExecute(String result) {
+            // Display notification content
+            String notificationWebViewContent = "<html><body><ul>" + resultNoticeContent + "</li></ul></body></html>";
+
+            WebView notificationWebView = (WebView) findViewById(R.id.webview);
+            notificationWebView.loadDataWithBaseURL("", notificationWebViewContent, "text/html", "UTF-8", "");
+        }
+
+    }
 }
+

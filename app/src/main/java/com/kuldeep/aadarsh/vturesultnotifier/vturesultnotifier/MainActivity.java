@@ -1,8 +1,11 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -49,6 +52,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(MainActivity.this, UsnInputActivity.class);
                 intent.putExtra("RESULT_TYPE", "REVALUATION");
                 startActivity(intent);
+                break;
+
+            case R.id.button_about_us:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                LayoutInflater alert_layout = LayoutInflater.from(this);
+                final View view = alert_layout.inflate(R.layout.about_us, null);
+                alertDialogBuilder.setView(view);
+                alertDialogBuilder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int value) {
+                        // Do nothing, go back to main UI
+                    }
+                });
+                alertDialogBuilder.show();
                 break;
         }
     }

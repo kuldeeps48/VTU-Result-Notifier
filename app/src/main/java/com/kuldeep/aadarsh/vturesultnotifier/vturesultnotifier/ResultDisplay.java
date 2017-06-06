@@ -1,9 +1,12 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.webkit.WebView;
 
 import java.io.BufferedReader;
@@ -30,8 +33,6 @@ public class ResultDisplay extends AppCompatActivity {
             while ((line = in.readLine()) != null)
                 stringBuilder.append(line);
 
-        } catch (FileNotFoundException e) {
-            Log.i("ResultDisplay", e.toString());
         } catch (IOException e) {
             Log.i("ResultDisplay", e.toString());
         }
@@ -41,11 +42,20 @@ public class ResultDisplay extends AppCompatActivity {
         display = (WebView) findViewById(R.id.webview);
 
         // Configure WebView
-        display.getSettings().setUseWideViewPort(true);
+        display.getSettings().setJavaScriptEnabled(true);
         display.getSettings().setLoadWithOverviewMode(true);
+        display.getSettings().setUseWideViewPort(true);
+        display.setScrollBarStyle(display.SCROLLBARS_OUTSIDE_OVERLAY);
+        display.setScrollbarFadingEnabled(true);
         display.getSettings().setBuiltInZoomControls(true);
         display.getSettings().setSupportZoom(true);
+
+        if (contents.contains("CGPA")) {
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+
         //Display String in WebView
         display.loadData(contents, "text/html", "utf-8");
+
     }
 }

@@ -43,7 +43,7 @@ public class ResultCheckService extends Service {
         //Allow Networking in service
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        //Get URL from MainActivity's intent
+        //Get URL from UsnInputActivity's intent
         page_url = intent.getStringExtra("RESULT_PAGE_URL");
 
         //Keep a notification so that service is not killed

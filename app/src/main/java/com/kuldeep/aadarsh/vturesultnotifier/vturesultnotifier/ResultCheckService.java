@@ -59,6 +59,7 @@ public class ResultCheckService extends Service {
                 .build();
         //Make it a foreground activity to prevent being killed
         startForeground(7, notification);
+
         //Web-page checking will be done Asynchronously to prevent main thread from hanging
         task = new CheckWebPage();
         task.execute();
@@ -68,6 +69,7 @@ public class ResultCheckService extends Service {
 
     @Override
     public void onDestroy(){
+        super.onDestroy();
         Log.v("SERVICE","Trying to kill Service");
         //Cancel the async task before killing service
         task.cancel(true);
@@ -76,7 +78,7 @@ public class ResultCheckService extends Service {
             task.cancel(true);
         }
         Log.v("SERVICE", "Task Killed, Service Killed");
-        super.onDestroy();
+        stopForeground(true);
     }
 
     private class CheckWebPage extends AsyncTask<String, Void, String> {
@@ -130,6 +132,8 @@ public class ResultCheckService extends Service {
                         //Create notification and show
                         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                         notificationManager.notify(0, mBuilder.build());
+
+                        ResultCheckService.this.onDestroy();
                         break;
                     }
                 } catch (MalformedURLException e) {

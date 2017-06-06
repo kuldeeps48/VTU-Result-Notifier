@@ -1,5 +1,4 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         jcenter()
@@ -11,13 +10,24 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
 allprojects {
     repositories {
         jcenter()
     }
 }
-
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+/*android {
+    signingConfigs {
+        config {
+            keyAlias 'vtu'
+            keyPassword 'Dontopen123'
+            storeFile file('D:/SignedKey/VTUResultKey.jks')
+            storePassword 'Dontopen123'
+        }
+    }
+}*/
+dependencies {
 }

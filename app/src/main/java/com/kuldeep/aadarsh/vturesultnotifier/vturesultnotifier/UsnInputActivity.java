@@ -2,8 +2,10 @@ package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -174,6 +176,22 @@ public class UsnInputActivity extends AppCompatActivity {
                 Intent i = new Intent(this, SettingsActivity.class);
                 startActivity(i);*/
 
+                break;
+
+            // Send feedback
+            case R.id.action_send_feedback:
+                String mailto = "mailto:the.era.labs@gmail.com" +
+                        "?subject=" + Uri.encode("Feedback on VTU Result") +
+                        "&body=" + Uri.encode("Hi there,\n I used your app and ");
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse(mailto));
+
+                try {
+                    startActivity(emailIntent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(getApplicationContext(), "Please install an Email app in order to send feedback.", Toast.LENGTH_LONG).show();
+                }
                 break;
 
             default:

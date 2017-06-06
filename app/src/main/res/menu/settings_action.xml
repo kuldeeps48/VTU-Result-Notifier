@@ -7,8 +7,8 @@
     </item>
 
     <item
-        android:id="@+id/action_update_check"
-        android:title="@string/pref_check_update"
+        android:id="@+id/action_send_feedback"
+        android:title="@string/button_send_feedback"
         >
     </item>
 

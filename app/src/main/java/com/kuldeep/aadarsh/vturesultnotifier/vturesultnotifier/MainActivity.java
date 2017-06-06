@@ -11,8 +11,9 @@ import android.widget.Button;
  */
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button buttonOldScheme, buttonNewScheme, buttonRevaluation, buttonAboutUs;
+    private Button buttonOldScheme, buttonCbcsScheme, buttonRevaluation, buttonAboutUs;
     private String oldSchemeURL = "http://results.vtu.ac.in/results/result_page.php?usn=";
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +23,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         buttonOldScheme = (Button) findViewById(R.id.button_old_scheme);
         buttonOldScheme.setOnClickListener(this);
+        buttonCbcsScheme = (Button) findViewById(R.id.button_cbcs_scheme);
+        buttonCbcsScheme.setOnClickListener(this);
         }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_old_scheme:
-                Intent intent = new Intent(MainActivity.this, UsnInputActivity.class);
+                intent = new Intent(MainActivity.this, UsnInputActivity.class);
                 intent.putExtra("URL_WITHOUT_USN", oldSchemeURL);
+                startActivity(intent);
+                break;
+
+            case R.id.button_cbcs_scheme:
+                intent = new Intent(MainActivity.this, UsnInputActivity.class);
+                intent.putExtra("RESULT_TYPE", "CBCS");
                 startActivity(intent);
                 break;
         }

@@ -14,8 +14,10 @@ import android.view.MenuItem;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
@@ -29,7 +31,9 @@ public class UsnInputActivity extends AppCompatActivity {
     private EditText usn_edittext;
     private Button start;
     private Button stop;
-    private String usn;
+    private Spinner cbcs_semester;
+    private String usn, sem;
+    private String base_url, url;
 
     public static boolean changeThemeFlag = false;
     public static boolean darkTheme = false;
@@ -58,6 +62,19 @@ public class UsnInputActivity extends AppCompatActivity {
             }
         });
 
+        // Get result type and initialize UsnInputActivity
+        String result_type = getIntent().getStringExtra("RESULT_TYPE");
+        switch (result_type) {
+            case "CBCS":
+                cbcs_semester = (Spinner) findViewById(R.id.select_cbcs_semester);
+                cbcs_semester.setVisibility(View.VISIBLE);
+                String[] items = new String[]{"1", "2", "3"};
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+                cbcs_semester.setAdapter(adapter);
+                base_url = "http://result.vtu.ac.in/cbcs_results2017.aspx?usn=";
+                break;
+        }
+
         start = (Button) findViewById(R.id.start_button);
         //Set button click listener on Start button
         start.setOnClickListener(new View.OnClickListener() {
@@ -71,9 +88,16 @@ public class UsnInputActivity extends AppCompatActivity {
                 Matcher matcher = pattern.matcher(usn);
 
                 if(matcher.find()) {
+                    // Format result; especially required for CBCS results
+                    // Get semester value
+                    if (cbcs_semester.isShown()) {
+                        sem = cbcs_semester.getSelectedItem().toString();
+                        url = base_url + usn + "&sem=" + sem;
+                    }
+                    else {
+                        url = base_url + usn;
+                    }
                     //Run service
-                    String url = getIntent().getStringExtra("URL_WITHOUT_USN");
-                    url = url + usn;
                     Intent serviceIntent = new Intent(UsnInputActivity.this, ResultCheckService.class);
                     serviceIntent.putExtra("RESULT_PAGE_URL", url);
                     getApplicationContext().startService(serviceIntent);

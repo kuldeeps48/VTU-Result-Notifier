@@ -6,6 +6,7 @@
     <string name="button_old_scheme">Old Scheme</string>
     <string name="button_cbcs_scheme">CBCS Scheme</string>
     <string name="button_revaluation">Revaluation</string>
+    <string name="spinner_cbcs_semester">Select Semester</string>
 
     <string name="proper_usn">Invalid USN. Check And Try Again.</string>
     <string name="service_started">You can close the app now.\n\nSit back and relax! We\'ll get the result and notify you.</string>

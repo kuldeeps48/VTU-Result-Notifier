@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     startActivity(emailIntent);
                 } catch (ActivityNotFoundException e) {
-                    Toast.makeText(getApplicationContext(), "Please install an Email app in order to send feedback.")
+                    Toast.makeText(getApplicationContext(), "Please install an Email app in order to send feedback.", Toast.LENGTH_LONG).show();
                 }
                 break;
         }

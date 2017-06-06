@@ -1,20 +1,26 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * Created by aadarsha on 6/5/17.
  */
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button buttonOldScheme, buttonCbcsScheme, buttonRevaluation, buttonAboutUs;
+    private Button buttonOldScheme, buttonCbcsScheme, buttonRevaluation, buttonAboutUs, buttonSendFeedback;
     private Intent intent;
 
     @Override
@@ -31,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonRevaluation.setOnClickListener(this);
         buttonAboutUs = (Button) findViewById(R.id.button_about_us);
         buttonAboutUs.setOnClickListener(this);
+        buttonSendFeedback = (Button) findViewById(R.id.button_send_feedback);
+        buttonSendFeedback.setOnClickListener(this);
         }
 
     @Override
@@ -66,6 +74,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
                 alertDialogBuilder.show();
                 break;
+
+            // Send feedback
+            case R.id.button_send_feedback:
+                String mailto = "mailto:the.era.labs@gmail.com" +
+                        "?subject=" + Uri.encode("Feedback on VTU Result") +
+                        "&body=" + Uri.encode("Hi there,\n I used your app and ");
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse(mailto));
+
+                try {
+                    startActivity(emailIntent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(getApplicationContext(), "Please install an Email app in order to send feedback.")
+                }
+                break;
         }
     }
+
 }

@@ -101,7 +101,7 @@ public class ResultCheckService extends Service {
                     bufferedReader.close();
                     if (content.toString().contains("University Seat Number is not available or Invalid..!")) {
                         Log.i(TAG, "Result Not Available..");
-                        TimeUnit.SECONDS.sleep(7);
+                        TimeUnit.SECONDS.sleep(3);
                     } else {
                         Log.i(TAG, "Result notification shown..");
 

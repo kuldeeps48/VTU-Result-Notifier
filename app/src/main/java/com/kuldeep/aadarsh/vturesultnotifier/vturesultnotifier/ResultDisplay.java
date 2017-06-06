@@ -40,6 +40,6 @@ public class ResultDisplay extends AppCompatActivity {
         Log.i("ResultDisplay", contents);
         display = (WebView) findViewById(R.id.webview);
         //Display String in WebView
-        display.loadDataWithBaseURL(null, contents, "text/html", "utf-8", null);
+        display.loadData(contents, "text/html", "utf-8");
     }
 }

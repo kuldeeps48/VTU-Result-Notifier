@@ -106,10 +106,11 @@ public class ResultCheckService extends Service {
                         Log.i(TAG, "Result notification shown..");
 
                         File path = getApplicationContext().getFilesDir();
-                        File file = new File(path, "my-file-name.txt");
+                        Log.i(TAG, path.toString());
+                        File file = new File(path, "my-file-name.html");
                         //Store web page in a file to display later
                         try {
-                            FileWriter out = new FileWriter(new File(path, "my-file-name.txt"));
+                            FileWriter out = new FileWriter(new File(path, "my-file-name.html"));
                             out.write(content.toString());
                             out.close();
                         } catch (IOException e) {

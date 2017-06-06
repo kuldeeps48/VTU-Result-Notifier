@@ -26,7 +26,7 @@ public class ResultDisplay extends AppCompatActivity {
         BufferedReader in = null;
         //Take HTML of webpage from file and store it as a string
         try {
-            in = new BufferedReader(new FileReader(new File(context.getFilesDir(), "my-file-name.txt")));
+            in = new BufferedReader(new FileReader(new File(context.getFilesDir(), "my-file-name.html")));
             while ((line = in.readLine()) != null)
                 stringBuilder.append(line);
 
@@ -39,6 +39,12 @@ public class ResultDisplay extends AppCompatActivity {
         String contents = stringBuilder.toString();
         Log.i("ResultDisplay", contents);
         display = (WebView) findViewById(R.id.webview);
+
+        // Configure WebView
+        display.getSettings().setUseWideViewPort(true);
+        display.getSettings().setLoadWithOverviewMode(true);
+        display.getSettings().setBuiltInZoomControls(true);
+        display.getSettings().setSupportZoom(true);
         //Display String in WebView
         display.loadData(contents, "text/html", "utf-8");
     }

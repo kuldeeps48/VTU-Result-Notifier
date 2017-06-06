@@ -1,25 +1,25 @@
 apply plugin: 'com.android.application'
 
 // Initialize keystore.properties file
-def keystorePropertiesFile = rootProject.file("keystore.properties")
+//def keystorePropertiesFile = rootProject.file("keystore.properties")
 
 // Initialize a new Properties() object called keystoreProperties.
-def keystoreProperties = new Properties()
+//def keystoreProperties = new Properties()
 
 
 // Load keystore.properties file into the keystoreProperties objct.
-keystoreProperties.load(new FileInputStream("keystore.properties"))
+//keystoreProperties.load(new FileInputStream("keystore.properties"))
 
 
 android {
-    signingConfigs {
+   /* signingConfigs {
         config {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties['storePassword']
         }
-    }
+    }*/
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -30,13 +30,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+    /*buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
-    }
+    }*/
 }
 
 dependencies {

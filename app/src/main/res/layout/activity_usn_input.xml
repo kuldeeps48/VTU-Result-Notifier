@@ -58,8 +58,7 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginBottom="27dp"
         android:background="@color/colorAccent"
         android:clickable="true"
         android:tint="@color/colorAccent"
@@ -68,19 +67,21 @@
         app:rippleColor="@color/colorAccent"
         app:srcCompat="@color/colorAccent"
         android:layout_alignBottom="@+id/stop_button"
-        android:layout_toEndOf="@+id/usn_edittext"/>
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_marginEnd="14dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:elevation="15dp"
-        android:rotation="-20"
+        android:rotation="0"
         android:text="@string/prev_result"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:layout_above="@+id/floatingActionButton"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="13dp"/>
+        android:layout_marginEnd="12dp"
+        android:id="@+id/textView2"/>
 
     <TextView
         android:id="@+id/textView"

@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonOldScheme.setOnClickListener(this);
         buttonCbcsScheme = (Button) findViewById(R.id.button_cbcs_scheme);
         buttonCbcsScheme.setOnClickListener(this);
+        buttonRevaluation = (Button) findViewById(R.id.button_revaluation);
+        buttonRevaluation.setOnClickListener(this);
+        buttonAboutUs = (Button) findViewById(R.id.button_about_us);
+        buttonAboutUs.setOnClickListener(this);
         }
 
     @Override
@@ -38,6 +42,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_cbcs_scheme:
                 intent = new Intent(MainActivity.this, UsnInputActivity.class);
                 intent.putExtra("RESULT_TYPE", "CBCS");
+                startActivity(intent);
+                break;
+
+            case R.id.button_revaluation:
+                intent = new Intent(MainActivity.this, UsnInputActivity.class);
+                intent.putExtra("RESULT_TYPE", "REVALUATION");
                 startActivity(intent);
                 break;
         }

@@ -78,6 +78,11 @@ public class UsnInputActivity extends AppCompatActivity {
                 cbcs_semester.setVisibility(View.INVISIBLE);
                 base_url = "http://results.vtu.ac.in/results/result_page.php?usn=";
                 break;
+
+            case "REVALUATION":
+                cbcs_semester.setVisibility(View.INVISIBLE);
+                base_url = "http://results.vtu.ac.in/reval_results/result_page.php?usn=";
+                break;
         }
 
         start = (Button) findViewById(R.id.start_button);

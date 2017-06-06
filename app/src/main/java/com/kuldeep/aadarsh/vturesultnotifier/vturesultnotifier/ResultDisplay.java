@@ -5,6 +5,8 @@ import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.webkit.WebView;
 
 import java.io.BufferedReader;
@@ -39,12 +41,14 @@ public class ResultDisplay extends AppCompatActivity {
         Log.i("ResultDisplay", contents);
         display = (WebView) findViewById(R.id.webview);
         //Some settings for webview
-        display.setInitialScale(5);
+        //display.setInitialScale(5);
         display.getSettings().setJavaScriptEnabled(true);
         display.getSettings().setLoadWithOverviewMode(true);
         display.getSettings().setUseWideViewPort(true);
         display.setScrollBarStyle(display.SCROLLBARS_OUTSIDE_OVERLAY);
         display.setScrollbarFadingEnabled(true);
+        display.getSettings().setBuiltInZoomControls(true);
+        display.getSettings().setSupportZoom(true);
 
         if (contents.contains("CGPA")) {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

@@ -12,7 +12,6 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private Button buttonOldScheme, buttonCbcsScheme, buttonRevaluation, buttonAboutUs;
-    private String oldSchemeURL = "http://results.vtu.ac.in/results/result_page.php?usn=";
     private Intent intent;
 
     @Override
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.button_old_scheme:
                 intent = new Intent(MainActivity.this, UsnInputActivity.class);
-                intent.putExtra("URL_WITHOUT_USN", oldSchemeURL);
+                intent.putExtra("RESULT_TYPE", "OLD");
                 startActivity(intent);
                 break;
 

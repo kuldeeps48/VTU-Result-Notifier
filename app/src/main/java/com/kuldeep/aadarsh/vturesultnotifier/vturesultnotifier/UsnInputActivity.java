@@ -63,15 +63,20 @@ public class UsnInputActivity extends AppCompatActivity {
         });
 
         // Get result type and initialize UsnInputActivity
+        cbcs_semester = (Spinner) findViewById(R.id.select_cbcs_semester);
         String result_type = getIntent().getStringExtra("RESULT_TYPE");
         switch (result_type) {
             case "CBCS":
-                cbcs_semester = (Spinner) findViewById(R.id.select_cbcs_semester);
                 cbcs_semester.setVisibility(View.VISIBLE);
                 String[] items = new String[]{"1", "2", "3"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
                 cbcs_semester.setAdapter(adapter);
                 base_url = "http://result.vtu.ac.in/cbcs_results2017.aspx?usn=";
+                break;
+
+            case "OLD":
+                cbcs_semester.setVisibility(View.INVISIBLE);
+                base_url = "http://results.vtu.ac.in/results/result_page.php?usn=";
                 break;
         }
 

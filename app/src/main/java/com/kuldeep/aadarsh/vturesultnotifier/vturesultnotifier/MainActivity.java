@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private Button buttonOldScheme, buttonCbcsScheme, buttonRevaluation, buttonAboutUs, buttonSendFeedback;
+    private WebView mWebView;
     private Intent intent;
 
     @Override
@@ -35,10 +37,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonCbcsScheme.setOnClickListener(this);
         buttonRevaluation = (Button) findViewById(R.id.button_revaluation);
         buttonRevaluation.setOnClickListener(this);
-        buttonAboutUs = (Button) findViewById(R.id.button_about_us);
-        buttonAboutUs.setOnClickListener(this);
-        buttonSendFeedback = (Button) findViewById(R.id.button_send_feedback);
-        buttonSendFeedback.setOnClickListener(this);
+        //buttonAboutUs = (Button) findViewById(R.id.button_about_us);
+        //buttonAboutUs.setOnClickListener(this);
+        //buttonSendFeedback = (Button) findViewById(R.id.button_send_feedback);
+        //buttonSendFeedback.setOnClickListener(this);
+
+        mWebView = (WebView) findViewById(R.id.webview);
+        mWebView.loadUrl("http://results.vtu.ac.in/");
+
         }
 
     @Override
@@ -62,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
 
-            case R.id.button_about_us:
+            /*case R.id.button_about_us:
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 LayoutInflater alert_layout = LayoutInflater.from(this);
                 final View view = alert_layout.inflate(R.layout.about_us, null);
@@ -90,7 +96,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(getApplicationContext(), "Please install an Email app in order to send feedback.", Toast.LENGTH_LONG).show();
                 }
                 break;
+                */
         }
     }
+
+
 
 }

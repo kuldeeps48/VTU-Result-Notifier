@@ -1,8 +1,10 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Intent intent;
     private RetrieveResultNotification notification;
     private String resultNoticeContent;
+    private String resultNotificationTextColor, getResultNotificationTextColorTagAttribute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //buttonSendFeedback.setOnClickListener(this);
 
         // Get result notifications
-        // Display loading status
-        String webViewLoadingStatus = "<html><body><i><h3>Loading Result Notifications. . .</h3><br/><h5>You may go ahead and check your results!</h5></i></body></html>";
         WebView notificationWebView = (WebView) findViewById(R.id.webview);
+
+        // Specify text and background color for notification web view
+        String webViewNotificationBackground = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary)).substring(2);
+        resultNotificationTextColor = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.textColorNotification)).substring(2);
+        Log.i("COLOR", webViewNotificationBackground);
+        getResultNotificationTextColorTagAttribute = " style=\"color:" + resultNotificationTextColor + "\"";
+        notificationWebView.setBackgroundColor(Color.parseColor(webViewNotificationBackground));
+
+        // Display loading status
+        String webViewLoadingStatus = "<html><body" + getResultNotificationTextColorTagAttribute + "><i><h3>Loading Result Notifications. . .</h3><br/><h5>You may go ahead and check your results!</h5></i></body></html>";
+
         notificationWebView.loadDataWithBaseURL("", webViewLoadingStatus, "text/html", "UTF-8", "");
 
         // Get notifications
@@ -155,7 +167,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         protected void onPostExecute(String result) {
             // Display notification content
-            String notificationWebViewContent = "<html><body><ul>" + resultNoticeContent + "</li></ul></body></html>";
+            String notificationWebViewContent = "<html><body " + getResultNotificationTextColorTagAttribute + "><ul>" + resultNoticeContent + "</li></ul></body></html>";
+            Log.i("HTML", notificationWebViewContent);
 
             WebView notificationWebView = (WebView) findViewById(R.id.webview);
             notificationWebView.loadDataWithBaseURL("", notificationWebViewContent, "text/html", "UTF-8", "");

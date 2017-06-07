@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:rowCount="2"
+        android:background="@color/colorPrimary"
         >
 
         <Button
@@ -19,7 +20,9 @@
             android:text="@string/button_old_scheme"
             android:textAlignment="center"
             android:layout_gravity="fill"
-            android:layout_columnWeight="1"/>
+            android:background="@color/colorPrimaryDark"
+            android:layout_margin="10dp"
+            android:textColor="@color/textColorPrimary"/>
 
         <Button
             android:id="@+id/button_revaluation"
@@ -31,7 +34,9 @@
             android:text="@string/button_revaluation"
             android:textAlignment="center"
             android:layout_gravity="fill"
-            android:layout_columnWeight="1"/>
+            android:background="@color/colorPrimaryDark"
+            android:layout_margin="10dp"
+            android:textColor="@color/textColorPrimary"/>
 
         <Button
             android:id="@+id/button_cbcs_revaluation"
@@ -43,7 +48,9 @@
             android:text="@string/button_cbcs_revaluation"
             android:textAlignment="center"
             android:layout_gravity="fill"
-            android:layout_columnWeight="1"/>
+            android:background="@color/colorPrimaryDark"
+            android:layout_margin="10dp"
+            android:textColor="@color/textColorPrimary"/>
 
         <Button
             android:id="@+id/button_cbcs_scheme"
@@ -55,7 +62,9 @@
             android:text="@string/button_cbcs_scheme"
             android:textAlignment="center"
             android:layout_gravity="fill"
-            android:layout_columnWeight="1"/>
+            android:background="@color/colorPrimaryDark"
+            android:layout_margin="10dp"
+            android:textColor="@color/textColorPrimary"/>
 
     </GridLayout>
 
@@ -63,12 +72,13 @@
         android:layout_width="fill_parent"
         android:layout_height="3dp"
         android:paddingBottom="30dp"
-        android:background="#ff5212"/>
+        android:background="@color/colorPrimaryDark"/>
 
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        />
 
 
 </LinearLayout>

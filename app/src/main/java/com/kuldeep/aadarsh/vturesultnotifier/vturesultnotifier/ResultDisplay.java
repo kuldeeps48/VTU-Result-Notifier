@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class ResultDisplay extends AppCompatActivity {
+public class ResultDisplay extends ActionBarActivity {
     private WebView display;
 
     @Override

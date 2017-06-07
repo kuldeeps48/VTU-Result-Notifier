@@ -108,7 +108,7 @@ public class UsnInputActivity extends Activity {
                         // Get semester value
                         if (cbcs_semester.isShown()) {
                             sem = cbcs_semester.getSelectedItem().toString();
-                            url = base_url + usn + "&sem=" + sem;
+                            url = base_url + usn + "&sem=" + sem.substring(4);
                         }
                         else {
                             url = base_url + usn;

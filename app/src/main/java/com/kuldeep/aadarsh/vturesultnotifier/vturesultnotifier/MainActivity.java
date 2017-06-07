@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         notificationWebView.setBackgroundColor(Color.parseColor(webViewNotificationBackground));
 
         // Display loading status
-        String webViewLoadingStatus = "<html><body" + getResultNotificationTextColorTagAttribute + "><i><h3>Loading Result Notifications. . .</h3><br/><h5>You may go ahead and check your results!</h5></i></body></html>";
+        String webViewLoadingStatus = "<html><body" + getResultNotificationTextColorTagAttribute + "><i><h3>Loading Announced Results List. . .</h3><br/><h5>You may go ahead and check your results!</h5></i></body></html>";
 
         notificationWebView.loadDataWithBaseURL("", webViewLoadingStatus, "text/html", "UTF-8", "");
 
@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int resultNoticeFirstIndex = (resultNoticeFirstIndexWithoutParam < resultNoticeFirstIndexWithParam) ? resultNoticeFirstIndexWithoutParam : resultNoticeFirstIndexWithParam;
                 int resultNoticeLastIndex = contentSourceCode.lastIndexOf("</li>");
                 resultNoticeContent = contentSourceCode.substring(resultNoticeFirstIndex, resultNoticeLastIndex);
+                resultNoticeContent = resultNoticeContent.replaceAll("justify", "left");
 
                 Log.i("NOTICE_CONTENT", resultNoticeContent);
 

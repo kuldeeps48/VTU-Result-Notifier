@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
@@ -16,32 +17,34 @@
         android:elevation="4dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_margin="30dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
         >
-
-        <Button
-            android:id="@+id/start_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:elevation="10dp"
-            android:padding="24dp"
-            android:text="@string/start_button"/>
 
         <EditText
             android:id="@+id/usn_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/start_button"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="18dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="22dp"
             android:ems="10"
             android:hint="@string/usn_edittext"
             android:inputType="textPersonName"
             android:longClickable="true"
             android:textAlignment="center"
             />
+
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usn_edittext"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="22dp"
+            android:elevation="10dp"
+            android:padding="24dp"
+            android:text="@string/start_button"/>
 
         <Spinner
             android:id="@+id/select_cbcs_semester"
@@ -54,6 +57,48 @@
             android:layout_alignBottom="@id/usn_edittext"
             />
 
-        </RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_marginBottom="27dp"
+        android:layout_marginEnd="14dp"
+        android:background="@color/colorAccent"
+        android:clickable="true"
+        android:tint="@color/colorAccent"
+        app:elevation="2dp"
+        app:fabSize="mini"
+        app:rippleColor="@color/colorAccent"
+        app:srcCompat="@color/colorAccent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="15dp"
+        android:rotation="0"
+        android:text="@string/prev_result"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:layout_above="@+id/floatingActionButton"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp"
+        android:id="@+id/textView2"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/info"
+        android:textSize="17sp"
+        android:textAlignment="center"
+        android:layout_marginBottom="33dp"
+        android:layout_above="@+id/usn_edittext"
+        android:layout_alignParentStart="true"/>
 
     </RelativeLayout>

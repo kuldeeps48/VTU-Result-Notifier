@@ -32,7 +32,6 @@ ToDo: Implement About Us in Settings page with new Activity instead of alert dia
 public class UsnInputActivity extends ActionBarActivity {
     private EditText usn_edittext;
     private Button start;
-    private Button stop;
     private Spinner cbcs_semester;
     private String usn, sem;
     private String base_url, url;
@@ -92,43 +91,49 @@ public class UsnInputActivity extends ActionBarActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Get USN as string
-                usn_edittext = (EditText) findViewById(R.id.usn_edittext);
-                usn = usn_edittext.getText().toString();
+                // Check button state
+                if (start.getText() == getResources().getString(R.string.start_button)) {
 
-                Pattern pattern = Pattern.compile("^[1-4]([A-Z]|[a-z]){2}\\d{2}([A-Z]|[a-z]){2}\\d{3}$");
-                Matcher matcher = pattern.matcher(usn);
+                    // Get USN as string
+                    usn_edittext = (EditText) findViewById(R.id.usn_edittext);
+                    usn = usn_edittext.getText().toString();
 
-                if(matcher.find()) {
-                    // Format result; especially required for CBCS results
-                    // Get semester value
-                    if (cbcs_semester.isShown()) {
-                        sem = cbcs_semester.getSelectedItem().toString();
-                        url = base_url + usn + "&sem=" + sem;
+                    Pattern pattern = Pattern.compile("^[1-4]([A-Z]|[a-z]){2}\\d{2}([A-Z]|[a-z]){2}\\d{3}$");
+                    Matcher matcher = pattern.matcher(usn);
+
+                    if(matcher.find()) {
+                        // Change Button text
+                        start.setText(R.string.stop_button);
+
+                        // Format result; especially required for CBCS results
+                        // Get semester value
+                        if (cbcs_semester.isShown()) {
+                            sem = cbcs_semester.getSelectedItem().toString();
+                            url = base_url + usn + "&sem=" + sem;
+                        }
+                        else {
+                            url = base_url + usn;
+                        }
+                        //Run service
+                        Intent serviceIntent = new Intent(UsnInputActivity.this, ResultCheckService.class);
+                        serviceIntent.putExtra("RESULT_PAGE_URL", url);
+                        getApplicationContext().startService(serviceIntent);
+                        Toast.makeText(UsnInputActivity.this,R.string.service_started, Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(UsnInputActivity.this,R.string.proper_usn, Toast.LENGTH_SHORT).show();
                     }
-                    else {
-                        url = base_url + usn;
-                    }
-                    //Run service
-                    Intent serviceIntent = new Intent(UsnInputActivity.this, ResultCheckService.class);
-                    serviceIntent.putExtra("RESULT_PAGE_URL", url);
-                    getApplicationContext().startService(serviceIntent);
-                    Toast.makeText(UsnInputActivity.this,R.string.service_started, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // Change button text
+                    start.setText(R.string.start_button);
 
-                } else {
-                    Toast.makeText(UsnInputActivity.this,R.string.proper_usn, Toast.LENGTH_SHORT).show();
+                    // Stop service
+                    stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));
+                    Toast.makeText(UsnInputActivity.this,R.string.service_stopped, Toast.LENGTH_SHORT).show();
                 }
 
-            }
-        });
 
-        stop = (Button) findViewById(R.id.stop_button);
-        //Set button click listener on Stop button
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));
-                Toast.makeText(UsnInputActivity.this,R.string.service_stopped, Toast.LENGTH_SHORT).show();
             }
         });
 

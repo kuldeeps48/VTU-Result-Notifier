@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.button_old_scheme:
                 intent = new Intent(MainActivity.this, UsnInputActivity.class);
-                intent.putExtra("RESULT_TYPE", "OLD");
+                intent.putExtra("RESULT_TYPE", "OLD SCHEME");
                 startActivity(intent);
                 break;
 

@@ -16,7 +16,9 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -33,7 +35,9 @@
         <activity
             android:name=".ResultDisplay"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            >
+
         </activity>
         <activity android:name=".ChangeTheme">
         </activity>
@@ -46,7 +50,7 @@
 
         <activity android:name=".SettingsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            >
         </activity>
     </application>
 

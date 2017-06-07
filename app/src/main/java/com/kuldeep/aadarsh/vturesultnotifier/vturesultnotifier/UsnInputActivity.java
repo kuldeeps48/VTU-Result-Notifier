@@ -1,11 +1,14 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,10 +20,12 @@ import android.view.MenuItem;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
@@ -44,9 +49,12 @@ public class UsnInputActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         ChangeTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_usn_input_v2);
+
+
 
 
         // Don't tell anyone about this!
@@ -66,7 +74,10 @@ public class UsnInputActivity extends ActionBarActivity {
 
         // Get result type and initialize UsnInputActivity
         cbcs_semester = (Spinner) findViewById(R.id.select_cbcs_semester);
+        TextView header = (TextView) findViewById(R.id.text_view_header);
         String result_type = getIntent().getStringExtra("RESULT_TYPE");
+        String headerText = result_type + " RESULT";
+        header.setText(headerText);
         switch (result_type) {
             case "CBCS":
                 cbcs_semester.setVisibility(View.VISIBLE);
@@ -76,7 +87,7 @@ public class UsnInputActivity extends ActionBarActivity {
                 base_url = "http://result.vtu.ac.in/cbcs_results2017.aspx?usn=";
                 break;
 
-            case "OLD":
+            case "OLD SCHEME":
                 cbcs_semester.setVisibility(View.INVISIBLE);
                 base_url = "http://results.vtu.ac.in/results/result_page.php?usn=";
                 break;

@@ -9,36 +9,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:rowCount="2"
-        android:background="@color/colorPrimaryBackground"
-        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        android:elevation="10dp"
         >
 
         <Button
             android:id="@+id/button_old_scheme"
-            android:layout_width="wrap_content"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:text="@string/button_old_scheme"
             android:layout_row="0"
             android:layout_column="0"
             android:textAlignment="center"
             android:layout_gravity="fill"
-            android:layout_columnWeight="0.5"
             android:background="@color/colorPrimaryDark"
             android:layout_margin="10dp"
             android:textColor="@color/textColorPrimary"/>
 
         <Button
             android:id="@+id/button_cbcs_scheme"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:layout_gravity="fill"
+            android:layout_margin="10dp"
             android:layout_row="0"
+            android:background="@color/colorPrimaryDark"
             android:text="@string/button_cbcs_scheme"
             android:textAlignment="center"
-            android:layout_gravity="fill"
-            android:layout_columnWeight="0.5"
-            android:background="@color/colorPrimaryDark"
-            android:layout_margin="10dp"
             android:textColor="@color/textColorPrimary"/>
 
 
@@ -52,7 +50,6 @@
             android:textAlignment="center"
             android:layout_gravity="fill"
             android:padding="10dp"
-            android:layout_columnWeight="0.5"
             android:background="@color/colorPrimaryDark"
             android:layout_margin="10dp"
             android:textColor="@color/textColorPrimary"/>
@@ -67,7 +64,6 @@
             android:textAlignment="center"
             android:layout_gravity="fill"
             android:padding="10dp"
-            android:layout_columnWeight="0.5"
             android:background="@color/colorPrimaryDark"
             android:layout_margin="10dp"
             android:textColor="@color/textColorPrimary"/>

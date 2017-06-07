@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:rowCount="2"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryBackground"
+        android:elevation="4dp"
         >
 
         <Button
@@ -73,11 +74,6 @@
 
 
     </GridLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="3dp"
-        android:background="@color/colorPrimaryDark"/>
 
     <WebView
         android:id="@+id/webview"

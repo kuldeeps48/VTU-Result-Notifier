@@ -41,6 +41,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         // Specify text and background color for notification web view
         String webViewNotificationBackground = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.wenview_background)).substring(2);
+
         resultNotificationTextColor = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.textColorNotification)).substring(2);
         Log.i("COLOR", webViewNotificationBackground);
         getResultNotificationTextColorTagAttribute = " style=\"color:" + resultNotificationTextColor + "\"";

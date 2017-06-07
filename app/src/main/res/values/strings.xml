@@ -11,7 +11,8 @@
     <string name="spinner_cbcs_semester">Select Semester</string>
 
     <string name="proper_usn">Invalid USN. Check And Try Again.</string>
-    <string name="service_started">You can close the app now.\n\nSit back and relax! We\'ll get the result and notify you.</string>
+    <string name="dialog_service_start_body">You can close the app now. We\'ll get the result and notify you.</string>
+    <string name="dialog_service_start_title">\nSit back and relax!\n</string>
     <string name="service_stopped">Operation cancelled!</string>
     <string name="pref_about_us">About Us</string>
     <string name="settings_caption">Settings</string>

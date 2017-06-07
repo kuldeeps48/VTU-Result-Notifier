@@ -3,6 +3,7 @@ package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -114,11 +115,13 @@ public class UsnInputActivity extends ActionBarActivity {
                         else {
                             url = base_url + usn;
                         }
+
                         //Run service
                         Intent serviceIntent = new Intent(UsnInputActivity.this, ResultCheckService.class);
                         serviceIntent.putExtra("RESULT_PAGE_URL", url);
                         getApplicationContext().startService(serviceIntent);
-                        Toast.makeText(UsnInputActivity.this,R.string.service_started, Toast.LENGTH_SHORT).show();
+
+                        dialogOnServiceStart();
 
                     } else {
                         Toast.makeText(UsnInputActivity.this,R.string.proper_usn, Toast.LENGTH_SHORT).show();
@@ -146,5 +149,19 @@ public class UsnInputActivity extends ActionBarActivity {
                 Log.i("UsnInputActivity", "Showed last stored result");
             }
         });
+    }
+
+    // Service started dialog
+    public void dialogOnServiceStart() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater alert_layout = LayoutInflater.from(this);
+        final View view = alert_layout.inflate(R.layout.dialog_on_service_start, null);
+        alertDialogBuilder.setView(view);
+        alertDialogBuilder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int value) {
+                // Do nothing, go back to main UI
+            }
+        });
+        alertDialogBuilder.show();
     }
 }

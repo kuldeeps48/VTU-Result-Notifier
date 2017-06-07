@@ -46,7 +46,7 @@ public class UsnInputActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ChangeTheme.onActivityCreateSetTheme(this);
-        setContentView(R.layout.activity_usn_input);
+        setContentView(R.layout.activity_usn_input_v2);
 
 
         // Don't tell anyone about this!

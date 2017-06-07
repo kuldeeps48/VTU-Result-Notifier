@@ -42,7 +42,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // Specify text and background color for notification web view
         String webViewNotificationBackground = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryBackground)).substring(2);
         resultNotificationTextColor = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.textColorNotification)).substring(2);
-        Log.i("COLOR", webViewNotificationBackground);
         getResultNotificationTextColorTagAttribute = " style=\"color:" + resultNotificationTextColor + "\"";
         notificationWebView.setBackgroundColor(Color.parseColor(webViewNotificationBackground));
 
@@ -86,6 +85,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         protected String doInBackground(String... urls) {
             try {
+                resultNoticeContent = "";
                 URL url = new URL("http://results.vtu.ac.in/");
 
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -119,10 +119,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
 
         protected void onPostExecute(String result) {
+            String notificationWebViewContent;
             // Display notification content
-            String notificationWebViewContent = "<html><body " + getResultNotificationTextColorTagAttribute + "><ul>" + resultNoticeContent + "</li></ul></body></html>";
-            Log.i("HTML", notificationWebViewContent);
-
+            if (resultNoticeContent.equals("")) {
+                Log.i("NO_CONNECTION", "No internet connection");
+                notificationWebViewContent = "<html><body" + getResultNotificationTextColorTagAttribute +
+                        ">" +
+                        "<br><br><br><br><center><img src=\"file:///android_asset/notconnectedtointernet.png\" width=\"50%\" height=\"35%\">" +
+                        "<br><strong>Oops! Result notifications from VTU could not be loaded. Please check your internet connection." +
+                        "</strong></center></body></html>";
+            }
+            else {
+                notificationWebViewContent = "<html><body " + getResultNotificationTextColorTagAttribute + "><ul>" + resultNoticeContent + "</li></ul></body></html>";
+            }
             WebView notificationWebView = (WebView) findViewById(R.id.webview);
             notificationWebView.loadDataWithBaseURL("", notificationWebViewContent, "text/html", "UTF-8", "");
         }

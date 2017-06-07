@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -38,7 +39,6 @@ public class UsnInputActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         ChangeTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_usn_input_v2);
@@ -58,6 +58,16 @@ public class UsnInputActivity extends Activity {
             }
         });
 
+        // Check and update button status
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("vtuResultPreferences", 0); // 0 - for private mode
+        final SharedPreferences.Editor editor = pref.edit();
+
+        Boolean service_status = pref.getBoolean("service_started", false);
+        start = (Button) findViewById(R.id.start_button);
+        if (service_status) {
+            start.setText(R.string.stop_button);
+        }
+
         // Get result type and initialize UsnInputActivity
         cbcs_semester = (Spinner) findViewById(R.id.select_cbcs_semester);
         TextView header = (TextView) findViewById(R.id.text_view_header);
@@ -68,7 +78,7 @@ public class UsnInputActivity extends Activity {
             case "CBCS":
                 cbcs_semester.setVisibility(View.VISIBLE);
                 String[] items = new String[]{"Sem 1", "Sem 2", "Sem 3", "Sem 4", "Sem 5", "Sem 6",
-                "Sem 7", "Sem 8"};
+                        "Sem 7", "Sem 8"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
                 cbcs_semester.setAdapter(adapter);
                 base_url = "http://result.vtu.ac.in/cbcs_results2017.aspx?usn=";
@@ -85,7 +95,6 @@ public class UsnInputActivity extends Activity {
                 break;
         }
 
-        start = (Button) findViewById(R.id.start_button);
         //Set button click listener on Start button
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,17 +109,18 @@ public class UsnInputActivity extends Activity {
                     Pattern pattern = Pattern.compile("^[1-4]([A-Z]|[a-z]){2}\\d{2}([A-Z]|[a-z]){2}\\d{3}$");
                     Matcher matcher = pattern.matcher(usn);
 
-                    if(matcher.find()) {
+                    if (matcher.find()) {
                         // Change Button text
                         start.setText(R.string.stop_button);
+                        editor.putBoolean("service_started", true);
+                        editor.apply();
 
                         // Format result; especially required for CBCS results
                         // Get semester value
                         if (cbcs_semester.isShown()) {
                             sem = cbcs_semester.getSelectedItem().toString();
                             url = base_url + usn + "&sem=" + sem.substring(4);
-                        }
-                        else {
+                        } else {
                             url = base_url + usn;
                         }
 
@@ -122,16 +132,17 @@ public class UsnInputActivity extends Activity {
                         dialogOnServiceStart();
 
                     } else {
-                        Toast.makeText(UsnInputActivity.this,R.string.proper_usn, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UsnInputActivity.this, R.string.proper_usn, Toast.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     // Change button text
                     start.setText(R.string.start_button);
+                    editor.putBoolean("service_started", false);
+                    editor.apply();
 
                     // Stop service
                     stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));
-                    Toast.makeText(UsnInputActivity.this,R.string.service_stopped, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UsnInputActivity.this, R.string.service_stopped, Toast.LENGTH_SHORT).show();
                 }
 
 

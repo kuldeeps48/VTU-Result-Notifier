@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.IBinder;
@@ -13,6 +14,7 @@ import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Button;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -133,6 +135,11 @@ public class ResultCheckService extends Service {
                         //Create notification and show
                         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                         notificationManager.notify(0, mBuilder.build());
+
+                        SharedPreferences pref = getApplicationContext().getSharedPreferences("vtuResultPreferences", 0); // 0 - for private mode
+                        final SharedPreferences.Editor editor = pref.edit();
+                        editor.putBoolean("service_started", false);
+                        editor.apply();
 
                         ResultCheckService.this.onDestroy();
                         break;

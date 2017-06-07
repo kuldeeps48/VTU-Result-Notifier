@@ -5,27 +5,19 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by aadarsha on 6/5/17.
- */
-
 public class MainActivity extends ActionBarActivity implements View.OnClickListener{
-    private Button buttonOldScheme, buttonCbcsScheme, buttonRevaluation, buttonAboutUs, buttonSendFeedback;
-    private WebView mWebView;
+    private Button buttonOldScheme, buttonCbcsScheme, buttonRevaluation;
     private Intent intent;
     private RetrieveResultNotification notification;
     private String resultNoticeContent;
@@ -43,10 +35,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         buttonCbcsScheme.setOnClickListener(this);
         buttonRevaluation = (Button) findViewById(R.id.button_revaluation);
         buttonRevaluation.setOnClickListener(this);
-        //buttonAboutUs = (Button) findViewById(R.id.button_about_us);
-        //buttonAboutUs.setOnClickListener(this);
-        //buttonSendFeedback = (Button) findViewById(R.id.button_send_feedback);
-        //buttonSendFeedback.setOnClickListener(this);
 
         // Get result notifications
         WebView notificationWebView = (WebView) findViewById(R.id.webview);
@@ -66,8 +54,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // Get notifications
         notification = new RetrieveResultNotification();
         notification.execute();
-
-
 
     }
 
@@ -91,36 +77,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 intent.putExtra("RESULT_TYPE", "REVALUATION");
                 startActivity(intent);
                 break;
-
-            /*case R.id.button_about_us:
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                LayoutInflater alert_layout = LayoutInflater.from(this);
-                final View view = alert_layout.inflate(R.layout.about_us, null);
-                alertDialogBuilder.setView(view);
-                alertDialogBuilder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int value) {
-                        // Do nothing, go back to main UI
-                    }
-                });
-                alertDialogBuilder.show();
-                break;
-
-            // Send feedback
-            case R.id.button_send_feedback:
-                String mailto = "mailto:the.era.labs@gmail.com" +
-                        "?subject=" + Uri.encode("Feedback on VTU Result") +
-                        "&body=" + Uri.encode("Hi there,\n I used your app and ");
-
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse(mailto));
-
-                try {
-                    startActivity(emailIntent);
-                } catch (ActivityNotFoundException e) {
-                    Toast.makeText(getApplicationContext(), "Please install an Email app in order to send feedback.", Toast.LENGTH_LONG).show();
-                }
-                break;
-                */
         }
     }
 
@@ -156,11 +112,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
                 Log.i("NOTICE_CONTENT", resultNoticeContent);
 
-            }
-            catch(MalformedURLException ex){
-                // hard coded URL
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 // hard coded URL
             }
             return "done";

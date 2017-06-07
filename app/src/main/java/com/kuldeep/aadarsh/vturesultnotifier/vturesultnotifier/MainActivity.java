@@ -40,10 +40,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         WebView notificationWebView = (WebView) findViewById(R.id.webview);
 
         // Specify text and background color for notification web view
-        String webViewNotificationBackground = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryBackground)).substring(2);
+        notificationWebView.setBackgroundResource(R.drawable.blue_background);
+        notificationWebView.setBackgroundColor(Color.TRANSPARENT);
+
         resultNotificationTextColor = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.textColorNotification)).substring(2);
         getResultNotificationTextColorTagAttribute = " style=\"color:" + resultNotificationTextColor + "\"";
-        notificationWebView.setBackgroundColor(Color.parseColor(webViewNotificationBackground));
+
 
         // Display loading status
         String webViewLoadingStatus = "<html><body" + getResultNotificationTextColorTagAttribute + "><i><h3>Loading Announced Results List. . .</h3><br/><h5>You may go ahead and check your results!</h5></i></body></html>";

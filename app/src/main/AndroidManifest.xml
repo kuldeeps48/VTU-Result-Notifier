@@ -45,7 +45,8 @@
         <activity
             android:name=".UsnInputActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle">
         </activity>
 
         <activity android:name=".SettingsActivity"

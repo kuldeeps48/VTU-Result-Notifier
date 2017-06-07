@@ -20,22 +20,20 @@
         android:layout_alignParentTop="true"
         android:padding="10dp"
         android:textStyle="bold"
+        android:textAlignment="center"
         android:textSize="20sp"
         android:background="#20FF0000"
         android:textColor="@color/textColorPrimary"
         />
 
-
-
-
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryBackground"
-        android:elevation="4dp"
+        android:elevation="10dp"
         android:layout_below="@id/text_view_header"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         >
 
         <EditText
@@ -73,10 +71,10 @@
             android:layout_below="@id/usn_edittext"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="30dp"
-            android:elevation="4dp"
+            android:elevation="10dp"
             android:padding="10dp"
             android:text="@string/start_button"
-            android:background="#80FF0000"/>
+            />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingActionButton"

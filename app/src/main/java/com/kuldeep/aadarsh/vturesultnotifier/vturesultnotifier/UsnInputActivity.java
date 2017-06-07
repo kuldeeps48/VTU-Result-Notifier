@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 ToDo: Implement About Us in Settings page with new Activity instead of alert dialog
  */
 
-public class UsnInputActivity extends ActionBarActivity {
+public class UsnInputActivity extends Activity {
     private EditText usn_edittext;
     private Button start;
     private Spinner cbcs_semester;

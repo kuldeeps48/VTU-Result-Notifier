@@ -23,7 +23,7 @@ import java.net.URL;
  * Created by aadarsha on 6/5/17.
  */
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends ActionBarActivity implements View.OnClickListener{
     private Button buttonOldScheme, buttonCbcsScheme, buttonRevaluation, buttonAboutUs, buttonSendFeedback;
     private WebView mWebView;
     private Intent intent;

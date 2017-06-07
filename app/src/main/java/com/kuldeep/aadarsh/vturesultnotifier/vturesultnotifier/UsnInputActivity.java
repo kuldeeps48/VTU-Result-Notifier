@@ -67,7 +67,8 @@ public class UsnInputActivity extends Activity {
         switch (result_type) {
             case "CBCS":
                 cbcs_semester.setVisibility(View.VISIBLE);
-                String[] items = new String[]{"1", "2", "3"};
+                String[] items = new String[]{"Sem 1", "Sem 2", "Sem 3", "Sem 4", "Sem 5", "Sem 6",
+                "Sem 7", "Sem 8"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
                 cbcs_semester.setAdapter(adapter);
                 base_url = "http://result.vtu.ac.in/cbcs_results2017.aspx?usn=";

@@ -46,6 +46,7 @@
             android:name=".UsnInputActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
+            android:theme="@style/AppThemeLight.ActionBar.Transparent"
             >
         </activity>
 

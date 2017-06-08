@@ -40,7 +40,6 @@ public class UsnInputActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTheme(R.style.AppThemeLight_ActionBar_Transparent);
         setContentView(R.layout.activity_usn_input_v2);
 
         // Don't tell anyone about this!

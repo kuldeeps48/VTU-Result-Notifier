@@ -18,7 +18,7 @@ public class ChangeTheme {
     // Set theme when new activity is started
     public static void onActivityCreateSetTheme(Activity activity) {
         if (changeThemeFlag) {
-            activity.setTheme(R.style.Theme_AppCompat);
+            activity.setTheme(R.style.AppTheme_ActionBar_Transparent);
         }
         else {
             activity.setTheme(R.style.AppTheme);

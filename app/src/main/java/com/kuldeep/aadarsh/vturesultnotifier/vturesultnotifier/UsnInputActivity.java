@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 ToDo: Implement About Us in Settings page with new Activity instead of alert dialog
  */
 
-public class UsnInputActivity extends Activity {
+public class UsnInputActivity extends ActionBarActivity {
     private EditText usn_edittext;
     private Button start;
     private Spinner cbcs_semester;
@@ -40,7 +40,7 @@ public class UsnInputActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ChangeTheme.onActivityCreateSetTheme(this);
+        this.setTheme(R.style.AppTheme_ActionBar_Transparent);
         setContentView(R.layout.activity_usn_input_v2);
 
         // Don't tell anyone about this!

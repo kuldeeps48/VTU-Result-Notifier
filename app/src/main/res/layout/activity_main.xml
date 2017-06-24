@@ -5,12 +5,13 @@
               android:layout_height="match_parent"
               xmlns:ads="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              android:weightSum="1">
+              >
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:rowCount="2"
+        android:id="@+id/gridlayout"
         android:background="@color/colorPrimary"
         android:elevation="10dp"
         >
@@ -81,7 +82,7 @@
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_below="@+id/gridlayout"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -89,9 +90,9 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_home_footer"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adUnitId="@string/banner_home_footer">
+        android:layout_centerHorizontal="true">
 
     </com.google.android.gms.ads.AdView>
 

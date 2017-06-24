@@ -26,7 +26,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ChangeTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_main);
 
         buttonOldScheme = (Button) findViewById(R.id.button_old_scheme);

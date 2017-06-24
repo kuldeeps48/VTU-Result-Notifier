@@ -140,8 +140,6 @@ public class ResultCheckService extends Service {
                         final SharedPreferences.Editor editor = pref.edit();
                         editor.putBoolean("service_started", false);
                         editor.apply();
-
-                        ResultCheckService.this.onDestroy();
                         break;
                     }
                 } catch (MalformedURLException e) {
@@ -156,6 +154,12 @@ public class ResultCheckService extends Service {
                 }
             }
             return "done";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            ResultCheckService.this.stopSelf();
         }
     }
 

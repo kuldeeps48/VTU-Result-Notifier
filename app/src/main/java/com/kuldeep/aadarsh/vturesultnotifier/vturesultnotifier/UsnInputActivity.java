@@ -42,21 +42,6 @@ public class UsnInputActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usn_input_v2);
 
-        // Don't tell anyone about this!
-        final EditText changeThemeAction = (EditText) findViewById(R.id.usn_edittext);
-        final Activity activity = this;
-        changeThemeAction.setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (!darkTheme) {
-                    ChangeTheme.changeTheme(activity);
-                    darkTheme = true;
-                    return true;
-                }
-                return false;
-            }
-        });
-
         // Check and update button status
         SharedPreferences pref = getApplicationContext().getSharedPreferences("vtuResultPreferences", 0); // 0 - for private mode
         final SharedPreferences.Editor editor = pref.edit();

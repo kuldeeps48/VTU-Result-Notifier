@@ -18,6 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,11 +34,6 @@ public class UsnInputActivity extends ActionBarActivity {
     private Spinner cbcs_semester;
     private String usn, sem;
     private String base_url, url;
-
-    public static boolean changeThemeFlag = false;
-    public static boolean darkTheme = false;
-    private FloatingActionButton floating_button;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +131,7 @@ public class UsnInputActivity extends ActionBarActivity {
             }
         });
 
-        floating_button = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        FloatingActionButton floating_button = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         floating_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +140,11 @@ public class UsnInputActivity extends ActionBarActivity {
                 Log.i("UsnInputActivity", "Showed last stored result");
             }
         });
+
+        //Bottom Banner Ad
+        AdView adView = (AdView) findViewById(R.id.adViewBottom);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     // Service started dialog

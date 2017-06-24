@@ -24,4 +24,9 @@
 
     <string name="pref_check_update">Check for updates</string>
 
+    <!-- AdMob ad unit IDs -->
+    <string name="banner_home_footer">ca-app-pub-9246444038362099/9472040167</string>
+    <string name="banner_input_footer">ca-app-pub-9246444038362099/4762638969</string>
+
+
 </resources>

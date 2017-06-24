@@ -10,6 +10,10 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,6 +31,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MobileAds.initialize(this, "ca-app-pub-9246444038362099~5041840565");
+
 
         buttonOldScheme = (Button) findViewById(R.id.button_old_scheme);
         buttonOldScheme.setOnClickListener(this);
@@ -37,23 +43,23 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         // Get result notifications
         WebView notificationWebView = (WebView) findViewById(R.id.webview);
-
         // Specify text and background color for notification web view
         notificationWebView.setBackgroundResource(R.drawable.blue_background);
         notificationWebView.setBackgroundColor(Color.TRANSPARENT);
-
         resultNotificationTextColor = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.textColorNotification)).substring(2);
         getResultNotificationTextColorTagAttribute = " style=\"color:" + resultNotificationTextColor + "\"";
-
-
         // Display loading status
         String webViewLoadingStatus = "<html><body" + getResultNotificationTextColorTagAttribute + "><i><h3>Loading Announced Results List. . .</h3><br/><h5>You may go ahead and check your results!</h5></i></body></html>";
-
         notificationWebView.loadDataWithBaseURL("", webViewLoadingStatus, "text/html", "UTF-8", "");
-
         // Get notifications
         notification = new RetrieveResultNotification();
         notification.execute();
+
+
+        //Bottom Banner Ad
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
     }
 

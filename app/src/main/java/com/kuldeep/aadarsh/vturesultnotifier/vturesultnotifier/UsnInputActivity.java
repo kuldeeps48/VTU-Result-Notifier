@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -41,6 +42,9 @@ public class UsnInputActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usn_input_v2);
+        //To recieve messages from service and check if we should change Button text Immediately
+        IntentFilter filter = new IntentFilter("com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.ButtonText");
+        this.registerReceiver(new Receiver(), filter);
 
         // Check and update button status
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -175,4 +179,21 @@ public class UsnInputActivity extends ActionBarActivity {
         }
     }
 
+    private class Receiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+            // Check and update button status
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            boolean checkingResult = settings.getBoolean("checkingResult", false);
+            start = (Button) findViewById(R.id.start_button);
+            if (checkingResult) {
+                start.setText(R.string.stop_button);
+            }
+            else
+                start.setText(R.string.start_button);
+        }
+    }
 }
+
+

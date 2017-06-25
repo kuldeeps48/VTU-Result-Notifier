@@ -36,6 +36,7 @@ public class ResultCheckService extends Service {
     public ResultCheckService() {
     }
 
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -83,6 +84,11 @@ public class ResultCheckService extends Service {
         }
         Log.v("SERVICE", "Task Killed, Service Killed");
         stopForeground(true);
+
+        //Send a broadcast to UsnInputActivity to change Button text
+        Intent intent = new Intent();
+        intent.setAction("com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.ButtonText");
+        sendBroadcast(intent);
     }
 
     private class CheckWebPage extends AsyncTask<String, Void, String> {
@@ -168,6 +174,11 @@ public class ResultCheckService extends Service {
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("checkingResult", false);
             editor.commit();
+
+            //Send a broadcast to UsnInputActivity to change Button text
+            Intent intent = new Intent();
+            intent.setAction("com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.ButtonText");
+            sendBroadcast(intent);
 
             ResultCheckService.this.stopSelf();
         }

@@ -41,6 +41,11 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeLight.ActionBar.Transparent">
+
+            <intent-filter>
+                <action android:name="com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.ButtonText"/>
+            </intent-filter>
+            
         </activity>
         <activity
             android:name=".SettingsActivity"

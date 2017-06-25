@@ -2,6 +2,8 @@ package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,9 +27,7 @@ import com.google.android.gms.ads.AdView;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
-ToDo: Implement About Us in Settings page with new Activity instead of alert dialog
- */
+
 
 public class UsnInputActivity extends ActionBarActivity {
     private EditText usn_edittext;
@@ -34,6 +35,7 @@ public class UsnInputActivity extends ActionBarActivity {
     private Spinner cbcs_semester;
     private String usn, sem;
     private String base_url, url;
+    public static final String PREFS_NAME = "MyPrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +43,10 @@ public class UsnInputActivity extends ActionBarActivity {
         setContentView(R.layout.activity_usn_input_v2);
 
         // Check and update button status
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("vtuResultPreferences", 0); // 0 - for private mode
-        final SharedPreferences.Editor editor = pref.edit();
-
-        Boolean service_status = pref.getBoolean("service_started", false);
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        boolean checkingResult = settings.getBoolean("checkingResult", false);
         start = (Button) findViewById(R.id.start_button);
-        if (service_status) {
+        if (checkingResult) {
             start.setText(R.string.stop_button);
         }
 
@@ -81,6 +81,12 @@ public class UsnInputActivity extends ActionBarActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Hide Keyboard
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow((null == getCurrentFocus()) ? null : getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+
+
                 // Check button state
                 if (start.getText() == getResources().getString(R.string.start_button)) {
 
@@ -94,8 +100,6 @@ public class UsnInputActivity extends ActionBarActivity {
                     if (matcher.find()) {
                         // Change Button text
                         start.setText(R.string.stop_button);
-                        editor.putBoolean("service_started", true);
-                        editor.apply();
 
                         // Format result; especially required for CBCS results
                         // Get semester value
@@ -119,8 +123,6 @@ public class UsnInputActivity extends ActionBarActivity {
                 } else {
                     // Change button text
                     start.setText(R.string.start_button);
-                    editor.putBoolean("service_started", false);
-                    editor.apply();
 
                     // Stop service
                     stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));
@@ -160,4 +162,17 @@ public class UsnInputActivity extends ActionBarActivity {
         });
         alertDialogBuilder.show();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Check and update button status
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        boolean checkingResult = settings.getBoolean("checkingResult", false);
+        start = (Button) findViewById(R.id.start_button);
+        if (checkingResult) {
+            start.setText(R.string.stop_button);
+        }
+    }
+
 }

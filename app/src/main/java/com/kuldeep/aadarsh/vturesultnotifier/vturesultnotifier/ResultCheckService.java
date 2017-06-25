@@ -31,6 +31,8 @@ public class ResultCheckService extends Service {
     private String TAG = "ResultCheckService";
     private String page_url;
     private CheckWebPage task;
+    public static final String PREFS_NAME = "MyPrefsFile";
+
     public ResultCheckService() {
     }
 
@@ -136,10 +138,12 @@ public class ResultCheckService extends Service {
                         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                         notificationManager.notify(0, mBuilder.build());
 
-                        SharedPreferences pref = getApplicationContext().getSharedPreferences("vtuResultPreferences", 0); // 0 - for private mode
-                        final SharedPreferences.Editor editor = pref.edit();
-                        editor.putBoolean("service_started", false);
-                        editor.apply();
+
+                        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putBoolean("checkingResult", true);
+                        editor.commit(); // We need it immediately :)
+
                         break;
                     }
                 } catch (MalformedURLException e) {
@@ -159,7 +163,19 @@ public class ResultCheckService extends Service {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            //Change running status
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("checkingResult", false);
+            editor.commit();
+
             ResultCheckService.this.stopSelf();
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            onPostExecute("Cancelled");
         }
     }
 

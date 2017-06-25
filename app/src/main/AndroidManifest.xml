@@ -45,7 +45,7 @@
             <intent-filter>
                 <action android:name="com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.ButtonText"/>
             </intent-filter>
-            
+
         </activity>
         <activity
             android:name=".SettingsActivity"

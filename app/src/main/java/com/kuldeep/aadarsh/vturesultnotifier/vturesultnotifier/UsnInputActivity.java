@@ -11,11 +11,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -25,18 +27,24 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 
 public class UsnInputActivity extends ActionBarActivity {
-    private EditText usn_edittext;
+    private AutoCompleteTextView usn_edittext;
     private Button start;
     private Spinner cbcs_semester;
     private String usn, sem;
     private String base_url, url;
     public static final String PREFS_NAME = "MyPrefsFile";
+    public static final String PREF_NAME = "VTU_USN_Prefs";
+    public static final String USN_HISTORY = "UsnHistory";
+    private SharedPreferences history;
+    private Set<String> EnteredUSN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,10 @@ public class UsnInputActivity extends ActionBarActivity {
         if (checkingResult) {
             start.setText(R.string.stop_button);
         }
+
+        //For autocomplete
+        history = getSharedPreferences(USN_HISTORY, 0);
+        EnteredUSN = history.getStringSet(USN_HISTORY, new HashSet<String>());
 
         // Get result type and initialize UsnInputActivity
         cbcs_semester = (Spinner) findViewById(R.id.select_cbcs_semester);
@@ -81,6 +93,14 @@ public class UsnInputActivity extends ActionBarActivity {
                 break;
         }
 
+        //Suggestions when entering usn
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, EnteredUSN.toArray(
+                new String[EnteredUSN.size()])
+        );
+        usn_edittext = (AutoCompleteTextView) findViewById(R.id.usn_edittext);
+        usn_edittext.setAdapter(adapter);
+
+
         //Set button click listener on Start button
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +115,6 @@ public class UsnInputActivity extends ActionBarActivity {
                 if (start.getText() == getResources().getString(R.string.start_button)) {
 
                     // Get USN as string
-                    usn_edittext = (EditText) findViewById(R.id.usn_edittext);
                     usn = usn_edittext.getText().toString();
 
                     Pattern pattern = Pattern.compile("^[1-4]([A-Z]|[a-z]){2}\\d{2}([A-Z]|[a-z]){2}\\d{3}$");
@@ -104,7 +123,7 @@ public class UsnInputActivity extends ActionBarActivity {
                     if (matcher.find()) {
                         // Change Button text
                         start.setText(R.string.stop_button);
-
+                        addSearchInput(usn_edittext.getText().toString());
                         // Format result; especially required for CBCS results
                         // Get semester value
                         if (cbcs_semester.isShown()) {
@@ -153,6 +172,20 @@ public class UsnInputActivity extends ActionBarActivity {
         adView.loadAd(adRequest);
     }
 
+    private void addSearchInput(String input) {
+        if(!EnteredUSN.contains(input)){
+            EnteredUSN.add(input);
+
+        }
+    }
+
+    private void saveToHistory(){
+        history = getSharedPreferences(USN_HISTORY, 0);
+        SharedPreferences.Editor editor = history.edit();
+        editor.putStringSet(USN_HISTORY, EnteredUSN);
+        editor.apply();
+    }
+
     // Service started dialog
     public void dialogOnServiceStart() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -177,6 +210,12 @@ public class UsnInputActivity extends ActionBarActivity {
         if (checkingResult) {
             start.setText(R.string.stop_button);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveToHistory();
     }
 
     private class Receiver extends BroadcastReceiver {

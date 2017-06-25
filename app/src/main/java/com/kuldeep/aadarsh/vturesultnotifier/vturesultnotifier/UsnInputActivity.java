@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,6 +28,11 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -41,10 +47,12 @@ public class UsnInputActivity extends ActionBarActivity {
     private String usn, sem;
     private String base_url, url;
     public static final String PREFS_NAME = "MyPrefsFile";
-    public static final String PREF_NAME = "VTU_USN_Prefs";
     public static final String USN_HISTORY = "UsnHistory";
+    private SharedPreferences settings;
     private SharedPreferences history;
     private Set<String> EnteredUSN;
+    private final String TAG = "USNINPUTACtivity";
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +63,22 @@ public class UsnInputActivity extends ActionBarActivity {
         this.registerReceiver(new Receiver(), filter);
 
         // Check and update button status
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        boolean checkingResult = settings.getBoolean("checkingResult", false);
-        start = (Button) findViewById(R.id.start_button);
-        if (checkingResult) {
-            start.setText(R.string.stop_button);
+        Context context = getApplicationContext();
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        BufferedReader in;
+        try {
+            in = new BufferedReader(new FileReader(new File(context.getFilesDir(), "state.txt")));
+            while ((line = in.readLine()) != null)
+                stringBuilder.append(line);
+        } catch (IOException e) {
+            Log.e(TAG, e.toString());
         }
+        String checkingRes = stringBuilder.toString();
+        start = (Button) findViewById(R.id.start_button);
+        if (checkingRes.equals("true")) {
+            start.setText(R.string.stop_button);
+        } else start.setText(R.string.start_button);
 
         //For autocomplete
         history = getSharedPreferences(USN_HISTORY, 0);
@@ -148,7 +166,11 @@ public class UsnInputActivity extends ActionBarActivity {
                     start.setText(R.string.start_button);
 
                     // Stop service
-                    stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));
+                    boolean stopped = stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));
+                    while(!stopped){
+                        Log.e(TAG, "Not cancelled!");
+                        stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));
+                    }
                     Toast.makeText(UsnInputActivity.this, R.string.service_stopped, Toast.LENGTH_SHORT).show();
                 }
 
@@ -167,7 +189,7 @@ public class UsnInputActivity extends ActionBarActivity {
         });
 
         //Bottom Banner Ad
-        AdView adView = (AdView) findViewById(R.id.adViewBottom);
+        adView = (AdView) findViewById(R.id.adViewBottom);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
     }
@@ -180,7 +202,7 @@ public class UsnInputActivity extends ActionBarActivity {
     }
 
     private void saveToHistory(){
-        history = getSharedPreferences(USN_HISTORY, 0);
+        history = getSharedPreferences(USN_HISTORY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = history.edit();
         editor.putStringSet(USN_HISTORY, EnteredUSN);
         editor.apply();
@@ -204,18 +226,41 @@ public class UsnInputActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         // Check and update button status
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        boolean checkingResult = settings.getBoolean("checkingResult", false);
-        start = (Button) findViewById(R.id.start_button);
-        if (checkingResult) {
-            start.setText(R.string.stop_button);
+        Context context = getApplicationContext();
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        BufferedReader in;
+        try {
+            in = new BufferedReader(new FileReader(new File(context.getFilesDir(), "state.txt")));
+            while ((line = in.readLine()) != null)
+                stringBuilder.append(line);
+        } catch (IOException e) {
+            Log.e(TAG, e.toString());
         }
+        String checkingRes = stringBuilder.toString();
+        start = (Button) findViewById(R.id.start_button);
+        if (checkingRes.equals("true")) {
+            start.setText(R.string.stop_button);
+        } else start.setText(R.string.start_button);
+
+        if(adView != null)
+            adView.resume();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         saveToHistory();
+        if(adView != null)
+            adView.pause();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(adView != null)
+            adView.destroy();
     }
 
     private class Receiver extends BroadcastReceiver {
@@ -223,14 +268,22 @@ public class UsnInputActivity extends ActionBarActivity {
         @Override
         public void onReceive(Context arg0, Intent arg1) {
             // Check and update button status
-            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-            boolean checkingResult = settings.getBoolean("checkingResult", false);
-            start = (Button) findViewById(R.id.start_button);
-            if (checkingResult) {
-                start.setText(R.string.stop_button);
+            Context context = getApplicationContext();
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            BufferedReader in;
+            try {
+                in = new BufferedReader(new FileReader(new File(context.getFilesDir(), "state.txt")));
+                while ((line = in.readLine()) != null)
+                    stringBuilder.append(line);
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
             }
-            else
-                start.setText(R.string.start_button);
+            String checkingRes = stringBuilder.toString();
+            start = (Button) findViewById(R.id.start_button);
+            if (checkingRes.equals("true")) {
+                start.setText(R.string.stop_button);
+            } else start.setText(R.string.start_button);
         }
     }
 }

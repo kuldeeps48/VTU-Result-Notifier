@@ -25,6 +25,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private Intent intent;
     private RetrieveResultListService notification;
     private String resultNotificationTextColor, getResultNotificationTextColorTagAttribute;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
 
         //Bottom Banner Ad
-        AdView adView = (AdView) findViewById(R.id.adView);
+        adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
@@ -83,6 +84,27 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(adView != null)
+            adView.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(adView != null)
+            adView.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(adView != null)
+            adView.destroy();
     }
 
     private class RetrieveResultListService extends AsyncTask<String, Void, String> {

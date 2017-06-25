@@ -1,5 +1,6 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -31,7 +33,8 @@ public class ResultCheckService extends Service {
     private String TAG = "ResultCheckService";
     private String page_url;
     private CheckWebPage task;
-    public static final String PREFS_NAME = "MyPrefsFile";
+    public static final String PREFS_NAME = "MyPrefsFileName";
+    private SharedPreferences settings;
 
     public ResultCheckService() {
     }
@@ -72,6 +75,8 @@ public class ResultCheckService extends Service {
         return START_STICKY;
     }
 
+
+
     @Override
     public void onDestroy(){
         super.onDestroy();
@@ -85,6 +90,17 @@ public class ResultCheckService extends Service {
         Log.v("SERVICE", "Task Killed, Service Killed");
         stopForeground(true);
 
+        //Change running status
+        File p = getApplicationContext().getFilesDir();
+        Log.i(TAG, p.toString());
+        try {
+            FileWriter out = new FileWriter(new File(p, "state.txt"));
+            out.write("false");
+            out.close();
+        } catch (IOException e) {
+            Log.i(TAG, e.toString());
+        }
+
         //Send a broadcast to UsnInputActivity to change Button text
         Intent intent = new Intent();
         intent.setAction("com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.ButtonText");
@@ -94,6 +110,17 @@ public class ResultCheckService extends Service {
     private class CheckWebPage extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String...urls) {
+            //Fuck sharedPreferences!
+            // Wasted half a day and it doesn't even work. We'll use good old fashioned files to share state
+            File p = getApplicationContext().getFilesDir();
+            Log.i(TAG, p.toString());
+            try {
+                FileWriter out = new FileWriter(new File(p, "state.txt"));
+                out.write("true");
+                out.close();
+            } catch (IOException e) {
+                Log.i(TAG, e.toString());
+            }
             while (true) {
                 Log.i(TAG, "Getting Results..");
                 try {
@@ -117,14 +144,13 @@ public class ResultCheckService extends Service {
 
                         File path = getApplicationContext().getFilesDir();
                         Log.i(TAG, path.toString());
-                        File file = new File(path, "my-file-name.html");
                         //Store web page in a file to display later
                         try {
                             FileWriter out = new FileWriter(new File(path, "my-file-name.html"));
                             out.write(content.toString());
                             out.close();
                         } catch (IOException e) {
-                            Log.i(TAG, e.toString());
+                            Log.e(TAG, e.toString());
                         }
 
                         //Create Notification
@@ -145,11 +171,6 @@ public class ResultCheckService extends Service {
                         notificationManager.notify(0, mBuilder.build());
 
 
-                        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putBoolean("checkingResult", true);
-                        editor.commit(); // We need it immediately :)
-
                         break;
                     }
                 } catch (MalformedURLException e) {
@@ -161,7 +182,11 @@ public class ResultCheckService extends Service {
                     Log.e(TAG, "Interrupted..");
                     task.cancel(true);
                     break;
+                } catch (Exception e) {
+                    Log.e(TAG, e.toString());
+                    break;
                 }
+
             }
             return "done";
         }
@@ -170,10 +195,15 @@ public class ResultCheckService extends Service {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             //Change running status
-            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("checkingResult", false);
-            editor.commit();
+            File p = getApplicationContext().getFilesDir();
+            Log.i(TAG, p.toString());
+            try {
+                FileWriter out = new FileWriter(new File(p, "state.txt"));
+                out.write("false");
+                out.close();
+            } catch (IOException e) {
+                Log.i(TAG, e.toString());
+            }
 
             //Send a broadcast to UsnInputActivity to change Button text
             Intent intent = new Intent();

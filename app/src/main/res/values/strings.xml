@@ -3,7 +3,7 @@
     <string name="usn_edittext">Enter USN</string>
     <string name="start_button">Check Result</string>
     <string name="stop_button">Cancel</string>
-    <string name="button_old_scheme">Old Scheme</string>
+    <string name="button_old_scheme">Old BE/MBA/MCA</string>
     <string name="button_cbcs_scheme">CBCS Scheme</string>
     <string name="button_revaluation">Revaluation</string>
     <string name="button_cbcs_revaluation">CBCS Revaluation</string>
@@ -17,8 +17,9 @@
     <string name="pref_about_us">About Us</string>
     <string name="settings_caption">Settings</string>
 
-    <string name="about_us_header">\nNow, get your results ASAP!\n</string>
-    <string name="about_us_introduction">\t\tEnter your USN before results are published. We\'ll send you the results after they are available.\n\t\tVTU server responds poorly when the results are published. VTU Result Notifier is an Android app that aims to solve this problem. The app is determined to provide the result once you enter the USN. Gone are the days when you reloaded the page multiple times with frustration.</string>
+    <string name="about_us_header">\nDeveloped by ~Era Labs~\n</string>
+    <string name="about_us_introduction">\t\t\t\tNow, get your results ASAP! Enter your USN and we\'ll download your result for you.
+        \n\n\t\t\t\tVTU server responds poorly when the results are published. This app aims to solve that problem. Gone are the days when you had to reload the page multiple times with frustration.</string>
     <string name="prev_result">Last\nResult</string>
     <string name="info">\n<i><b>A notification will arrive when the result is available</b></i>\n\nClick on notification to view the result</string>
 

@@ -135,10 +135,13 @@ public class UsnInputActivity extends ActionBarActivity {
                     // Get USN as string
                     usn = usn_edittext.getText().toString();
 
-                    Pattern pattern = Pattern.compile("^[1-4]([A-Z]|[a-z]){2}\\d{2}([A-Z]|[a-z]){2}\\d{3}$");
-                    Matcher matcher = pattern.matcher(usn);
+                    Pattern patternUsnOldBe = Pattern.compile("^[1-4]([A-Z]|[a-z]){2}\\d{2}([A-Z]|[a-z]){2}\\d{3}$");
+                    Matcher matcherUsnOldBe = patternUsnOldBe.matcher(usn);
 
-                    if (matcher.find()) {
+                    Pattern patternUsnMca = Pattern.compile("^[1-4]([A-Z]|[a-z]){2}\\d{2}([A-Z]|[a-z]){3}\\d{2}$");
+                    Matcher matcherUsnMca = patternUsnMca.matcher(usn);
+
+                    if (matcherUsnOldBe.find() || matcherUsnMca.find()) {
                         // Change Button text
                         start.setText(R.string.stop_button);
                         addSearchInput(usn_edittext.getText().toString());

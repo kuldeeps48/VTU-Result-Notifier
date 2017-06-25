@@ -20,11 +20,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener{
+public class MainActivity extends ActionBarActivity implements View.OnClickListener {
     private Button buttonOldScheme, buttonCbcsScheme, buttonRevaluation;
     private Intent intent;
-    private RetrieveResultNotification notification;
-    private String resultNoticeContent;
+    private RetrieveResultListService notification;
     private String resultNotificationTextColor, getResultNotificationTextColorTagAttribute;
 
     @Override
@@ -52,7 +51,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         String webViewLoadingStatus = "<html><body" + getResultNotificationTextColorTagAttribute + "><i><h3>Loading Announced Results List. . .</h3><br/><h5>You may go ahead and check your results!</h5></i></body></html>";
         notificationWebView.loadDataWithBaseURL("", webViewLoadingStatus, "text/html", "UTF-8", "");
         // Get notifications
-        notification = new RetrieveResultNotification();
+        notification = new RetrieveResultListService();
         notification.execute();
 
 
@@ -86,10 +85,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
     }
 
+    private class RetrieveResultListService extends AsyncTask<String, Void, String> {
 
-    // Result notification View
-    private class RetrieveResultNotification extends AsyncTask<String, Void, String> {
-
+        private String resultNoticeContent;
+        // Result notification View
         protected String doInBackground(String... urls) {
             try {
                 resultNoticeContent = "";
@@ -100,8 +99,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 String data;
                 StringBuilder content = new StringBuilder();
                 //Source code in content
-                while ((data = bufferedReader.readLine()) != null)
-                {
+                while ((data = bufferedReader.readLine()) != null) {
                     content.append(data);
                 }
                 bufferedReader.close();
@@ -117,10 +115,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 resultNoticeContent = contentSourceCode.substring(resultNoticeFirstIndex, resultNoticeLastIndex);
                 resultNoticeContent = resultNoticeContent.replaceAll("justify", "left");
 
-                Log.i("NOTICE_CONTENT", resultNoticeContent);
-
             } catch (IOException e) {
-                // hard coded URL
+                Log.i("NOTICE_CONTENT", resultNoticeContent);
             }
             return "done";
         }
@@ -135,14 +131,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         "<br><br><br><br><center><img src=\"file:///android_asset/notconnectedtointernet.png\" width=\"50%\" height=\"35%\">" +
                         "<br><strong>Oops! Result notifications from VTU could not be loaded. Please check your internet connection." +
                         "</strong></center></body></html>";
-            }
-            else {
+            } else {
                 notificationWebViewContent = "<html><body " + getResultNotificationTextColorTagAttribute + "><ul>" + resultNoticeContent + "</li></ul></body></html>";
             }
+
             WebView notificationWebView = (WebView) findViewById(R.id.webview);
             notificationWebView.loadDataWithBaseURL("", notificationWebViewContent, "text/html", "UTF-8", "");
         }
-
     }
 }
 

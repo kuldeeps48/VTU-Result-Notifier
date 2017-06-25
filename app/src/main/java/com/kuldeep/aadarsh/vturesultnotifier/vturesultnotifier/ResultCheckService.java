@@ -122,7 +122,7 @@ public class ResultCheckService extends Service {
                         //Create Notification
                         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ResultCheckService.this);
                         mBuilder.setContentTitle("Your Result Is Out!");
-                        mBuilder.setContentText("Click this notification to visit result page.");
+                        mBuilder.setContentText("Click on this to view it");
                         mBuilder.setSmallIcon(R.drawable.small_icon);
                         mBuilder.setAutoCancel(true);
                         mBuilder.setSound(Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.monotone));

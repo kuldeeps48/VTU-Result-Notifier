@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VTU Result</string>
+    <string name="app_name">VTU Results</string>
     <string name="usn_edittext">Enter USN</string>
     <string name="start_button">Check Result</string>
     <string name="stop_button">Cancel</string>

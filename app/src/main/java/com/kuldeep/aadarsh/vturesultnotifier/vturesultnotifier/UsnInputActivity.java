@@ -149,7 +149,7 @@ public class UsnInputActivity extends ActionBarActivity {
                         // Get semester value
                         if (cbcs_semester.isShown()) {
                             sem = cbcs_semester.getSelectedItem().toString();
-                            url = base_url + usn + "&sem=" + sem.substring(4);
+                            url = base_url + usn + "&sem=" + sem.substring(4) + "&prg=UG";
                         } else {
                             url = base_url + usn;
                         }

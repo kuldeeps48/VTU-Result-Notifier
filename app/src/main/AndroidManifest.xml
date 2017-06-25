@@ -39,6 +39,7 @@
         <activity
             android:name=".UsnInputActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeLight.ActionBar.Transparent">
 

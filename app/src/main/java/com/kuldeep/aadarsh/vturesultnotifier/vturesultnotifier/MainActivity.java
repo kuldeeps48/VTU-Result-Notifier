@@ -154,7 +154,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         "<br><strong>Oops! Result notifications from VTU could not be loaded. Please check your internet connection." +
                         "</strong></center></body></html>";
             } else {
-                notificationWebViewContent = "<html><body " + getResultNotificationTextColorTagAttribute + "><ul>" + resultNoticeContent + "</li></ul></body></html>";
+                notificationWebViewContent = "<html><body " + getResultNotificationTextColorTagAttribute + "><ul>"
+                        + resultNoticeContent + "</li></ul><br><br><br></body></html>";
             }
 
             WebView notificationWebView = (WebView) findViewById(R.id.webview);

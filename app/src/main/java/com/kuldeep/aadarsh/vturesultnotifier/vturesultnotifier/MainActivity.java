@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -82,6 +83,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 intent = new Intent(MainActivity.this, UsnInputActivity.class);
                 intent.putExtra("RESULT_TYPE", "REVALUATION");
                 startActivity(intent);
+                break;
+            case R.id.button_cbcs_revaluation:
+                /*intent = new Intent(MainActivity.this, UsnInputActivity.class);
+                intent.putExtra("RESULT_TYPE", "CBCS REVALUATION");
+                startActivity(intent);*/
                 break;
         }
     }

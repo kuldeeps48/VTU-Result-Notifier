@@ -58,9 +58,6 @@ public class UsnInputActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usn_input_v2);
-        //To recieve messages from service and check if we should change Button text Immediately
-        IntentFilter filter = new IntentFilter("com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.ButtonText");
-        this.registerReceiver(new Receiver(), filter);
 
         // Check and update button status
         Context context = getApplicationContext();
@@ -109,6 +106,9 @@ public class UsnInputActivity extends ActionBarActivity {
                 cbcs_semester.setVisibility(View.INVISIBLE);
                 base_url = "http://results.vtu.ac.in/reval_results/result_page.php?usn=";
                 break;
+
+            case "CBCS REVALUATION":
+                break;
         }
 
         //Suggestions when entering usn
@@ -123,6 +123,10 @@ public class UsnInputActivity extends ActionBarActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //To recieve messages from service and check if we should change Button text Immediately
+                IntentFilter filter = new IntentFilter("com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier.ButtonText");
+                getApplicationContext().registerReceiver(new Receiver(), filter);
+
                 //Hide Keyboard
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow((null == getCurrentFocus()) ? null : getCurrentFocus().getWindowToken(),

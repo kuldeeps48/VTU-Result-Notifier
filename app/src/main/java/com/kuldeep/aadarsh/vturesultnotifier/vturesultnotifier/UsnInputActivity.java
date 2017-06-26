@@ -135,13 +135,16 @@ public class UsnInputActivity extends ActionBarActivity {
                     // Get USN as string
                     usn = usn_edittext.getText().toString();
 
-                    Pattern patternUsnOldBe = Pattern.compile("^[1-4]([A-Z]|[a-z]){2}\\d{2}([A-Z]|[a-z]){2}\\d{3}$");
-                    Matcher matcherUsnOldBe = patternUsnOldBe.matcher(usn);
+                    // Check for USN validity. MCA USN pattern matches MBA USN.
+                    Pattern patternUsnBe = Pattern.compile("^[1-4]([A-Z]|[a-z]){2}\\d{2}([A-Z]|[a-z]){2}\\d{3}$");
+                    Matcher matcherUsnBe = patternUsnBe.matcher(usn);
+                    Boolean usnBe = matcherUsnBe.find();
 
                     Pattern patternUsnMca = Pattern.compile("^[1-4]([A-Z]|[a-z]){2}\\d{2}([A-Z]|[a-z]){3}\\d{2}$");
                     Matcher matcherUsnMca = patternUsnMca.matcher(usn);
+                    Boolean usnMca = matcherUsnMca.find();
 
-                    if (matcherUsnOldBe.find() || matcherUsnMca.find()) {
+                    if (usnBe || usnMca) {
                         // Change Button text
                         start.setText(R.string.stop_button);
                         addSearchInput(usn_edittext.getText().toString());
@@ -149,7 +152,14 @@ public class UsnInputActivity extends ActionBarActivity {
                         // Get semester value
                         if (cbcs_semester.isShown()) {
                             sem = cbcs_semester.getSelectedItem().toString();
-                            url = base_url + usn + "&sem=" + sem.substring(4) + "&prg=UG";
+
+                            // Get UG or PG result, Booleans usnBe and usnMca used because matcher.find() not working here
+                            if (usnBe) {
+                                url = base_url + usn + "&sem=" + sem.substring(4) + "&prg=UG";
+                            }
+                            else if (usnMca) {
+                                    url = base_url + usn + "&sem=" + sem.substring(4) + "&prg=UG";
+                            }
                         } else {
                             url = base_url + usn;
                         }

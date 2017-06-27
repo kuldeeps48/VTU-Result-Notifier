@@ -2,7 +2,7 @@
     <string name="app_name">VTU Results</string>
     <string name="usn_edittext">Enter USN</string>
     <string name="start_button">Check Result</string>
-    <string name="stop_button">Cancel</string>
+    <string name="stop_button">Stop Checking Result</string>
     <string name="button_old_scheme">Old BE/MBA/MCA</string>
     <string name="button_cbcs_scheme">CBCS Scheme</string>
     <string name="button_revaluation">Revaluation</string>
@@ -17,6 +17,7 @@
     <string name="pref_about_us">About Us</string>
     <string name="settings_caption">Settings</string>
 
+    <string name="rate_us">\nIf you find this app useful, consider rating it. Thanks!</string>
     <string name="about_us_header">\nDeveloped by ~Era Labs~\n</string>
     <string name="about_us_introduction">\t\t\t\tNow, get your results ASAP! Enter your USN and we\'ll download your result for you.
         \n\n\t\t\t\tVTU server responds poorly when the results are published. This app aims to solve that problem. Gone are the days when you had to reload the page multiple times with frustration.</string>
@@ -24,6 +25,7 @@
     <string name="info">\n<i><b>A notification will arrive when the result is available</b></i>\n\nClick on notification to view the result</string>
 
     <string name="pref_check_update">Check for updates</string>
+
 
     <!-- AdMob ad unit IDs -->
     <string name="banner_home_footer">ca-app-pub-9246444038362099/9472040167</string>

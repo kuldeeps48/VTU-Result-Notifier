@@ -171,7 +171,7 @@ public class UsnInputActivity extends ActionBarActivity {
                         //Run service
                         Intent serviceIntent = new Intent(UsnInputActivity.this, ResultCheckService.class);
                         serviceIntent.putExtra("RESULT_PAGE_URL", url);
-                        getApplicationContext().startService(serviceIntent);
+                        startService(serviceIntent);
 
                         dialogOnServiceStart();
 
@@ -184,6 +184,7 @@ public class UsnInputActivity extends ActionBarActivity {
 
                     // Stop service
                     boolean stopped = stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));
+
                     while(!stopped){
                         Log.e(TAG, "Not cancelled!");
                         stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));

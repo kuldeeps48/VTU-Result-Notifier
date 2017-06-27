@@ -94,9 +94,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     protected void onPause() {
-        super.onPause();
         if(adView != null)
             adView.pause();
+        super.onPause();
     }
 
     @Override
@@ -108,9 +108,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if(adView != null)
             adView.destroy();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     private class RetrieveResultListService extends AsyncTask<String, Void, String> {
@@ -166,6 +171,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
             WebView notificationWebView = (WebView) findViewById(R.id.webview);
             notificationWebView.loadDataWithBaseURL("", notificationWebViewContent, "text/html", "UTF-8", "");
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            onPostExecute("");
         }
     }
 }

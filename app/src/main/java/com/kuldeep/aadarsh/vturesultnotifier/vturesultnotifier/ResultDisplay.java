@@ -1,9 +1,12 @@
 package com.kuldeep.aadarsh.vturesultnotifier.vturesultnotifier;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -106,7 +110,13 @@ public class ResultDisplay extends ActionBarActivity {
         alertDialogBuilder.setView(view);
         alertDialogBuilder.setNeutralButton("Rate", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int value) {
-                // open Link to app in play store
+                Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                try {
+                    startActivity(myAppLinkToMarket);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(ResultDisplay.this, " Unable to find market app", Toast.LENGTH_LONG).show();
+                }
             }
         });
         alertDialogBuilder.show();

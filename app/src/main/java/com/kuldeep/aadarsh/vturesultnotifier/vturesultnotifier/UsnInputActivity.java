@@ -189,7 +189,7 @@ public class UsnInputActivity extends ActionBarActivity {
                         Log.e(TAG, "Not cancelled!");
                         stopService(new Intent(UsnInputActivity.this, ResultCheckService.class));
                     }
-                    Toast.makeText(UsnInputActivity.this, R.string.service_stopped, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(UsnInputActivity.this, R.string.service_stopped, Toast.LENGTH_LONG).show();
                 }
 
 
